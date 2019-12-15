@@ -54,6 +54,7 @@ int main(int, char** argv) {
   const std::string input_file = argv[1];
   const std::string output_file = argv[2];
   const size_t max_threads = std::thread::hardware_concurrency();
+  std::cout << "max_threads: " << max_threads << std::endl;
   std::atomic<bool> stopped = false;
   OneToOneQueue<int64_t> to_factorize;
   OneToOneQueue<std::pair<int64_t, std::vector<int64_t>>> result;
@@ -69,7 +70,7 @@ int main(int, char** argv) {
               result.push({x, factorize(x)});
               std::cout << "thread: " << std::this_thread::get_id() << " finish factorize: " << x << std::endl;
             }
-          } 
+          }
         }
     ));
   }
