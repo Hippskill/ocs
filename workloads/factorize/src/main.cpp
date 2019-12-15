@@ -22,7 +22,7 @@ std::vector<int64_t> factorize(int64_t x) {
 }
 
 template<typename T>
-class OneToOneQueeue {
+class OneToOneQueue {
 public:
   void push(T&& x) {
     std::lock_guard lock(mutex_);
@@ -52,8 +52,8 @@ private:
 int main() {
   const size_t max_threads = std::thread::hardware_concurrency();
   std::atomic<bool> stopped = false;
-  OneToOneQueeue<int64_t> to_factorize;
-  OneToOneQueeue<std::pair<int64_t, std::vector<int64_t>>> result;
+  OneToOneQueue<int64_t> to_factorize;
+  OneToOneQueue<std::pair<int64_t, std::vector<int64_t>>> result;
 
   std::vector<std::thread> threads;
   for (size_t i = 0; i < max_threads; ++i) {
