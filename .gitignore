@@ -1,0 +1,14 @@
+*.out
+bin/
+build/
+clang_build/
+__pycache__/
+*.pyc
+.ycm_extra_conf.py
+cmake-build-*
+*.sw[a-p]
+.DS_Store
+*.deb
+.python-version
+.cache/
+.venv/
