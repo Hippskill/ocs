@@ -1,9 +1,10 @@
 #include <atomic>
+#include <fstream>
 #include <iostream>
+#include <mutex>
 #include <queue>
 #include <thread>
 #include <vector>
-#include <fstream>
 
 using namespace std::chrono_literals;
 
@@ -49,7 +50,9 @@ private:
   mutable std::mutex mutex_;
 };
 
-int main() {
+int main(int, char** argv) {
+  const std::string input_file = argv[1];
+  const std::string output_file = argv[2];
   const size_t max_threads = std::thread::hardware_concurrency();
   std::atomic<bool> stopped = false;
   OneToOneQueue<int64_t> to_factorize;
@@ -72,7 +75,7 @@ int main() {
   }
 
   std::ifstream input;
-  input.open("to_factorize.in");
+  input.open(input_file);
 
   int64_t x;
   while (input >> x) {
@@ -96,7 +99,7 @@ int main() {
   }
 
   std::ofstream output;
-  output.open("to_factorize.out");
+  output.open(output_file);
   std::pair<int64_t, std::vector<int64_t>> factorization;
   while (result.pop(&factorization)) {
     output << factorization.first << " :  ";
