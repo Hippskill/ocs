@@ -3,4 +3,4 @@ mkdir working_directory
 
 python3 src/generate.py working_directory/to_factorize.in
 
-./factorize working_directory/to_factorize.in working_directory/to_factorize.out
+./factorize working_directory/to_factorize.in working_directory/to_factorize.out $(nproc)

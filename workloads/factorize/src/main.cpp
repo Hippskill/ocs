@@ -53,7 +53,7 @@ private:
 int main(int, char** argv) {
   const std::string input_file = argv[1];
   const std::string output_file = argv[2];
-  const size_t max_threads = std::thread::hardware_concurrency();
+  const size_t max_threads = std::stoi(argv[3]);
   std::cout << "max_threads: " << max_threads << std::endl;
   std::atomic<bool> stopped = false;
   OneToOneQueue<int64_t> to_factorize;

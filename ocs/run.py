@@ -7,7 +7,7 @@ from simulation.docker_utils import run_container
 client = docker.from_env()
 
 start_time = time.time()
-container_id = run_container(image='4f34b2fdfe25', cpus=10.0)
+container_id = run_container(image='2e1f31450d9f', cpuset_cpus='1,2,3')
 while True:
     container = client.containers.get(container_id[:12])
     if container.status != 'running':
