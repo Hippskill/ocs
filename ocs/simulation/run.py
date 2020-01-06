@@ -22,7 +22,6 @@ def run(config):
     print('start optimizing configuration for', workload['name'])
 
     for n_cpu in range(4, int(simulation_limits['max_cpu']) + 1):
-        # TODO(nmikhaylov): support ram
         for n_ram_gb in range(1, int(simulation_limits['max_ram_gb']) + 1):
             cost_per_second = n_cpu * simulation_cost['cpu_core'] + n_ram_gb * simulation_cost['ram_gb']
             print('try instance with cpu={} ram_gb={} cost_per_second={}'.format(n_cpu, n_ram_gb, cost_per_second))
@@ -34,7 +33,8 @@ def run(config):
                 # TODO(nmikhaylov): docker kill on ctrl+c
                 container_id = run_container(
                     image=workload['image'],
-                    cpuset_cpus=','.join(map(str, range(1, n_cpu + 1)))
+                    cpuset_cpus=','.join(map(str, range(1, n_cpu + 1))),
+                    memory=n_ram_gb * 1024 * 1024 * 1024
                 )
                 while True:
                     container = client.containers.get(container_id[:12])
@@ -50,7 +50,7 @@ def run(config):
                 print('attempt={} time elapsed: {}'.format(attempt, elapsed))
 
             print('average time', np.mean(metrics))
-            print('average cost', np.mean(metrics) * cost)
+            print('average cost', np.mean(metrics) * cost_per_second)
 
 
 def main():
