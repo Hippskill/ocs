@@ -6,6 +6,12 @@ import yaml
 
 import numpy as np
 
+if __name__ == '__main__' and __package__ is None:
+   from os import sys, path
+   sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
+import env
+
 from docker_utils import run_container
 
 
@@ -13,6 +19,8 @@ def run(config):
     print(config)
 
     client = docker.from_env()
+
+    simulation = env.Simulation(config['simulation'])
 
     simulation_cost = config['simulation']['costs']
     simulation_limits = config['simulation']['limits']
