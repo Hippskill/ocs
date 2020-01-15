@@ -3,6 +3,7 @@ import time
 
 from core.instance import Instance
 from core.container_metrics import ContainerMetrics
+from core.run_result import RunResult
 from simulation.docker_utils import run_container
 
 
@@ -47,6 +48,7 @@ class Simulation:
             time.sleep(self._metrics_poll_interval)
 
         finish_time = time.time()
-        weighted_cost = (finish_time - start_time) * instance.cost_per_second
+        elapsed_time = finish_time - start_time
+        weighted_cost = elapsed_time * instance.cost_per_second
 
-        return weighted_cost, container_metrics
+        return RunResult(elapsed_time, weighted_cost, container_metrics)
