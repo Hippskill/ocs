@@ -7,9 +7,11 @@ simulation:
     max_cpu: 19
     max_ram_gb: 1
 
+  metrics_poll_interval: 0.1
+
 workload:
   name: 'Factorize'
-  image: 2e1f31450d9f
+  image: 063fce619bc1
 
 algorithm:
   episodes: 3

@@ -23,19 +23,23 @@ def run(config):
     print('start optimizing configuration for', workload.name)
     for instance in simulation.get_avaliable_instances():
         print('try instance', instance)
-        metrics = []
 
+        costs = []
+        all_container_metrics = []
         for attempt in range(algrotihm['episodes']):
             start_time = time.time()
 
-            metrics.append(simulation.run_workload_on_instance(workload, instance))
+            cost, container_metrics = simulation.run_workload_on_instance(workload, instance)
+
+            costs.append(cost)
+            all_container_metrics.append(container_metrics)
 
             finish_time = time.time()
             elapsed = finish_time - start_time
 
             print('attempt={} time elapsed: {}'.format(attempt, elapsed))
 
-        print('average cost', np.mean(metrics))
+        print('average cost', np.mean(costs))
 
 
 def main():
