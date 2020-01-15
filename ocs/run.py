@@ -32,7 +32,7 @@ def run(config):
 
             print('attempt: {} time elapsed: {}'.format(attempt, run_result.elapsed_time))
 
-        print('mean_cost: ', np.mean(costs))
+        print('mean_cost: {}'.format(np.mean([run_result.cost for run_result in run_results])))
 
 
 def main():
