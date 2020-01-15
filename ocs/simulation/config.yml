@@ -4,7 +4,7 @@ simulation:
     ram_gb: 1
 
   limits:
-    max_cpu: 19
+    max_cpu: 2
     max_ram_gb: 1
 
   metrics_poll_interval: 0.1
@@ -14,4 +14,7 @@ workload:
   image: 063fce619bc1
 
 algorithm:
-  episodes: 3
+  episodes: 1
+
+policy:
+  max_cost: 100

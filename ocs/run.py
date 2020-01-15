@@ -11,6 +11,8 @@ if __name__ == '__main__' and __package__ is None:
 
 from simulation import env
 from core.workload import Workload
+from core.policy import Policy
+from core.instance_with_run_results import InstanceWithRunResults
 
 
 def run(config):
@@ -21,6 +23,8 @@ def run(config):
     simulation = env.Simulation(config['simulation'])
 
     print('start optimizing configuration for workload: ', workload)
+
+    instances_with_run_results = []
     for instance in simulation.get_avaliable_instances():
         print('try instance', instance)
 
@@ -33,6 +37,11 @@ def run(config):
             print('attempt: {} time elapsed: {}'.format(attempt, run_result.elapsed_time))
 
         print('mean_cost: {}'.format(np.mean([run_result.cost for run_result in run_results])))
+        instances_with_run_results.append(InstanceWithRunResults(instance, run_results))
+
+    policy = Policy(config['policy'])
+    best_instance = policy.choose_best_instance(instances_with_run_results)
+    print('best_instance for workload: {} is {}'.format(workload, best_instance))
 
 
 def main():
