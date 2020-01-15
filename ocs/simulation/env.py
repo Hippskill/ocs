@@ -2,8 +2,7 @@ import docker
 import time
 
 from core.instance import Instance
-
-from docker_utils import run_container
+from simulation.docker_utils import run_container
 
 
 def parse_avaliable_instances_from_config(config):
