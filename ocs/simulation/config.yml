@@ -17,4 +17,4 @@ algorithm:
   episodes: 1
 
 policy:
-  max_cost: 100
+  max_cost: 200

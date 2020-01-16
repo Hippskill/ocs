@@ -12,4 +12,5 @@ class Policy:
                         best_candidate.mean_elapsed > instance_with_run_results.mean_elapsed:
                     best_candidate = instance_with_run_results
 
+        assert best_candidate is not None, 'instance not found'
         return best_candidate.instance
