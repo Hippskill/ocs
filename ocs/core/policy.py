@@ -1,8 +1,15 @@
 class Policy:
 
     def __init__(self, config):
-        self.config = config
+        self.max_cost = float(config['max_cost'])
 
     def choose_best_instance(self, instances_with_run_results):
-        # ¯\_(ツ)_/¯
-        return instances_with_run_results[0].instance
+        best_candidate = None
+
+        for instance_with_run_results in instances_with_run_results:
+            if instance_with_run_results.mean_cost <= self.max_cost:
+                if best_candidate is None or\
+                        best_candidate.mean_elapsed > instance_with_run_results.mean_elapsed:
+                    best_candidate = instance_with_run_results
+
+        return best_candidate.instance
