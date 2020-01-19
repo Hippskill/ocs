@@ -4,18 +4,27 @@ import time
 from core.instance import Instance
 from core.container_metrics import ContainerMetrics
 from core.run_result import RunResult
+
 from simulation.docker_utils import run_container
+
+from simulation.aws import aws
 
 
 def parse_avaliable_instances_from_config(config):
-    simulation_cost = config['costs']
-    simulation_limits = config['limits']
-    instances = []
-    for n_cpu in range(1, int(simulation_limits['max_cpu']) + 1):
-        for n_ram_gb in range(1, int(simulation_limits['max_ram_gb']) + 1):
-            cost_per_second = n_cpu * simulation_cost['cpu_core'] + n_ram_gb * simulation_cost['ram_gb']
-            instances.append(Instance(n_cpu, n_ram_gb, cost_per_second))
-    return instances
+    if config['type'] == 'custom':
+        # TODO(nmikhaylov): move to separate file as in aws/aws.py
+        simulation_cost = config['costs']
+        simulation_limits = config['limits']
+        instances = []
+        for n_cpu in range(1, int(simulation_limits['max_cpu']) + 1):
+            for n_ram_gb in range(1, int(simulation_limits['max_ram_gb']) + 1):
+                cost_per_second = n_cpu * simulation_cost['cpu_core'] + n_ram_gb * simulation_cost['ram_gb']
+                instances.append(Instance(n_cpu, n_ram_gb, cost_per_second))
+        return instances
+    elif config['type'] == 'aws':
+        return aws.load_instaces(config)
+    else:
+        raise Exception('unexpected simulation type: {}'.format(config['type']))
 
 
 class Simulation:

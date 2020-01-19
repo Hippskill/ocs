@@ -1,0 +1,137 @@
+name,cpu,ecu,memory,storage,cost
+t3.nano,2,Variable,0.5 GiB,EBS Only,$0.0059
+t3.micro,2,Variable,1 GiB,EBS Only,$0.0118
+t3.small,2,Variable,2 GiB,EBS Only,$0.0236
+t3.medium,2,Variable,4 GiB,EBS Only,$0.0472
+t3.large,2,Variable,8 GiB,EBS Only,$0.0944
+t3.xlarge,4,Variable,16 GiB,EBS Only,$0.1888
+t3.2xlarge,8,Variable,32 GiB,EBS Only,$0.3776
+t3a.nano,2,Variable,0.5 GiB,EBS Only,$0.0053
+t3a.micro,2,Variable,1 GiB,EBS Only,$0.0106
+t3a.small,2,Variable,2 GiB,EBS Only,$0.0212
+t3a.medium,2,Variable,4 GiB,EBS Only,$0.0425
+t3a.large,2,Variable,8 GiB,EBS Only,$0.085
+t3a.xlarge,4,Variable,16 GiB,EBS Only,$0.1699
+t3a.2xlarge,8,Variable,32 GiB,EBS Only,$0.3398
+t2.nano,1,Variable,0.5 GiB,EBS Only,$0.0066
+t2.micro,1,Variable,1 GiB,EBS Only,$0.0132
+t2.small,1,Variable,2 GiB,EBS Only,$0.0264
+t2.medium,2,Variable,4 GiB,EBS Only,$0.0528
+t2.large,2,Variable,8 GiB,EBS Only,$0.1056
+t2.xlarge,4,Variable,16 GiB,EBS Only,$0.2112
+t2.2xlarge,8,Variable,32 GiB,EBS Only,$0.4224
+m5.large,2,8,8 GiB,EBS Only,$0.112
+m5.xlarge,4,16,16 GiB,EBS Only,$0.224
+m5.2xlarge,8,37,32 GiB,EBS Only,$0.448
+m5.4xlarge,16,70,64 GiB,EBS Only,$0.896
+m5.8xlarge,32,128,128 GiB,EBS Only,$1.792
+m5.12xlarge,48,168,192 GiB,EBS Only,$2.688
+m5.16xlarge,64,256,256 GiB,EBS Only,$3.584
+m5.24xlarge,96,337,384 GiB,EBS Only,$5.376
+m5.metal,96,345,384 GiB,EBS Only,$5.376
+m5a.large,2,N/A,8 GiB,EBS Only,$0.101
+m5a.xlarge,4,N/A,16 GiB,EBS Only,$0.202
+m5a.2xlarge,8,N/A,32 GiB,EBS Only,$0.404
+m5a.4xlarge,16,N/A,64 GiB,EBS Only,$0.808
+m5a.8xlarge,32,N/A,128 GiB,EBS Only,$1.616
+m5a.12xlarge,48,N/A,192 GiB,EBS Only,$2.424
+m5a.16xlarge,64,N/A,256 GiB,EBS Only,$3.232
+m5a.24xlarge,96,N/A,384 GiB,EBS Only,$4.848
+m5ad.large,2,N/A,8 GiB,1 x 75 NVMe SSD,$0.121
+m5ad.xlarge,4,N/A,16 GiB,1 x 150 NVMe SSD,$0.242
+m5ad.2xlarge,8,N/A,32 GiB,1 x 300 NVMe SSD,$0.484
+m5ad.4xlarge,16,N/A,64 GiB,2 x 300 NVMe SSD,$0.968
+m5ad.8xlarge,32,N/A,128 GiB,2 x 600 NVMe SSD,$1.936
+m5ad.12xlarge,48,N/A,192 GiB,2 x 900 NVMe SSD,$2.904
+m5ad.16xlarge,64,N/A,256 GiB,4 x 600 NVMe SSD,$3.872
+m5ad.24xlarge,96,N/A,384 GiB,4 x 900 NVMe SSD,$5.808
+m5d.large,2,10,8 GiB,1 x 75 NVMe SSD,$0.132
+m5d.xlarge,4,16,16 GiB,1 x 150 NVMe SSD,$0.264
+m5d.2xlarge,8,37,32 GiB,1 x 300 NVMe SSD,$0.528
+m5d.4xlarge,16,70,64 GiB,2 x 300 NVMe SSD,$1.056
+m5d.8xlarge,32,128,128 GiB,2 x 600 NVMe SSD,$2.112
+m5d.12xlarge,48,168,192 GiB,2 x 900 NVMe SSD,$3.168
+m5d.16xlarge,64,256,256 GiB,4 x 600 NVMe SSD,$4.224
+m5d.24xlarge,96,337,384 GiB,4 x 900 NVMe SSD,$6.336
+m5d.metal,96,345,384 GiB,4 x 900 NVMe SSD,$6.336
+c5.large,2,10,4 GiB,EBS Only,$0.101
+c5.xlarge,4,20,8 GiB,EBS Only,$0.202
+c5.2xlarge,8,39,16 GiB,EBS Only,$0.404
+c5.4xlarge,16,73,32 GiB,EBS Only,$0.808
+c5.9xlarge,36,139,72 GiB,EBS Only,$1.818
+c5.12xlarge,48,188,96 GiB,EBS Only,$2.424
+c5.18xlarge,72,281,144 GiB,EBS Only,$3.636
+c5.24xlarge,96,375,192 GiB,EBS Only,$4.848
+c5.metal,96,375,192 GiB,EBS Only,$4.848
+c5d.large,2,10,4 GiB,1 x 50 NVMe SSD,$0.115
+c5d.xlarge,4,20,8 GiB,1 x 100 NVMe SSD,$0.23
+c5d.2xlarge,8,39,16 GiB,1 x 200 NVMe SSD,$0.46
+c5d.4xlarge,16,73,32 GiB,1 x 400 NVMe SSD,$0.92
+c5d.9xlarge,36,139,72 GiB,1 x 900 NVMe SSD,$2.07
+c5d.18xlarge,72,281,144 GiB,2 x 900 NVMe SSD,$4.14
+g4dn.xlarge,4,N/A,16 GiB,125 GB NVMe SSD,$0.615
+g4dn.2xlarge,8,N/A,32 GiB,225 GB NVMe SSD,$0.879
+g4dn.4xlarge,16,N/A,64 GiB,225 GB NVMe SSD,$1.408
+g4dn.8xlarge,32,N/A,128 GiB,900 GB NVMe SSD,$2.544
+g4dn.12xlarge,48,N/A,192 GiB,900 GB NVMe SSD,$4.574
+g4dn.16xlarge,64,N/A,256 GiB,900 GB NVMe SSD,$5.088
+x1.16xlarge,64,174.5,976 GiB,1 x 1920 SSD,$8.403
+x1.32xlarge,128,349,1.952 GiB,2 x 1920 SSD,$16.806
+r5.large,2,10,16 GiB,EBS Only,$0.148
+r5.xlarge,4,19,32 GiB,EBS Only,$0.296
+r5.2xlarge,8,37,64 GiB,EBS Only,$0.592
+r5.4xlarge,16,70,128 GiB,EBS Only,$1.184
+r5.8xlarge,32,128,256 GiB,EBS Only,$2.368
+r5.12xlarge,48,168,384 GiB,EBS Only,$3.552
+r5.16xlarge,64,256,512 GiB,EBS Only,$4.736
+r5.24xlarge,96,337,768 GiB,EBS Only,$7.104
+r5.metal,96,347,768 GiB,EBS Only,$7.104
+r5a.large,2,N/A,16 GiB,EBS Only,$0.133
+r5a.xlarge,4,N/A,32 GiB,EBS Only,$0.266
+r5a.2xlarge,8,N/A,64 GiB,EBS Only,$0.532
+r5a.4xlarge,16,N/A,128 GiB,EBS Only,$1.064
+r5a.8xlarge,32,N/A,256 GiB,EBS Only,$2.128
+r5a.12xlarge,48,N/A,384 GiB,EBS Only,$3.192
+r5a.16xlarge,64,N/A,512 GiB,EBS Only,$4.256
+r5a.24xlarge,96,N/A,768 GiB,EBS Only,$6.384
+r5ad.large,2,N/A,16 GiB,1 x 75 NVMe SSD,$0.153
+r5ad.xlarge,4,N/A,32 GiB,1 x 150 NVMe SSD,$0.306
+r5ad.2xlarge,8,N/A,64 GiB,1 x 300 NVMe SSD,$0.612
+r5ad.4xlarge,16,N/A,128 GiB,2 x 300 NVMe SSD,$1.224
+r5ad.8xlarge,32,N/A,256 GiB,2 x 600 NVMe SSD,$2.448
+r5ad.12xlarge,48,N/A,384 GiB,2 x 900 NVMe SSD,$3.672
+r5ad.16xlarge,64,N/A,512 GiB,4 x 600 NVMe SSD,$4.896
+r5ad.24xlarge,96,N/A,768 GiB,4 x 900 NVMe SSD,$7.344
+r5d.large,2,10,16 GiB,1 x 75 NVMe SSD,$0.169
+r5d.xlarge,4,19,32 GiB,1 x 150 NVMe SSD,$0.338
+r5d.2xlarge,8,37,64 GiB,1 x 300 NVMe SSD,$0.676
+r5d.4xlarge,16,70,128 GiB,2 x 300 NVMe SSD,$1.352
+r5d.8xlarge,32,128,256 GiB,2 x 600 NVMe SSD,$2.704
+r5d.12xlarge,48,168,384 GiB,2 x 900 NVMe SSD,$4.056
+r5d.16xlarge,64,256,512 GiB,4 x 600 NVMe SSD,$5.408
+r5d.24xlarge,96,337,768 GiB,4 x 900 NVMe SSD,$8.112
+r5d.metal,96,347,768 GiB,4 x 900 NVMe SSD,$8.112
+r4.large,2,7,15.25 GiB,EBS Only,$0.156
+r4.xlarge,4,16,30.5 GiB,EBS Only,$0.312
+r4.2xlarge,8,31,61 GiB,EBS Only,$0.624
+r4.4xlarge,16,58,122 GiB,EBS Only,$1.248
+r4.8xlarge,32,97,244 GiB,EBS Only,$2.496
+r4.16xlarge,64,195,488 GiB,EBS Only,$4.992
+i3.large,2,8,15.25 GiB,1 x 475 NVMe SSD,$0.181
+i3.xlarge,4,16,30.5 GiB,1 x 950 NVMe SSD,$0.362
+i3.2xlarge,8,31,61 GiB,1 x 1900 NVMe SSD,$0.724
+i3.4xlarge,16,53,122 GiB,2 x 1900 NVMe SSD,$1.448
+i3.8xlarge,32,97,244 GiB,4 x 1900 NVMe SSD,$2.896
+i3.16xlarge,64,201,488 GiB,8 x 1900 NVMe SSD,$5.792
+i3en.large,2,10,16 GiB,1 x 1250 NVMe SSD,$0.263
+i3en.xlarge,4,N/A,32 GiB,1 x 2500 NVMe SSD,$0.526
+i3en.2xlarge,8,37,64 GiB,2 x 2500 NVMe SSD,$1.052
+i3en.3xlarge,12,N/A,96 GiB,1 x 7500 NVMe SSD,$1.578
+i3en.6xlarge,24,N/A,192 GiB,2 x 7500 NVMe SSD,$3.156
+i3en.12xlarge,48,168,384 GiB,4 x 7500 NVMe SSD,$6.312
+i3en.24xlarge,96,337,768 GiB,8 x 7500 NVMe SSD,$12.624
+i3en.metal,96,N/A,768 GiB,8 x 7500 NVMe SSD,$12.624
+d2.xlarge,4,14,30.5 GiB,3 x 2000 HDD,$0.772
+d2.2xlarge,8,28,61 GiB,6 x 2000 HDD,$1.544
+d2.4xlarge,16,56,122 GiB,12 x 2000 HDD,$3.088
+d2.8xlarge,36,116,244 GiB,24 x 2000 HDD,$6.176
