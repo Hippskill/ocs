@@ -22,7 +22,8 @@ def run(config):
     algrotihm = config['algorithm']
     simulation = env.Simulation(config['simulation'])
 
-    print('start optimizing configuration for workload: ', workload)
+    print('start optimizing configuration for workload:', workload)
+    print('instances to check:', ', '.join(map(str, simulation.get_avaliable_instances())))
 
     instances_with_run_results = []
     for instance in simulation.get_avaliable_instances():
