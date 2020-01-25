@@ -1,11 +1,11 @@
 simulation:
-  costs:
-    cpu_core: 1
-    ram_gb: 1
+  type: aws
 
   limits:
-    max_cpu: 2
-    max_ram_gb: 1
+    max_cpu: 10
+    max_ram_gb: 5
+
+  aws_data_path: simulation/aws/aws.csv
 
   metrics_poll_interval: 0.1
 

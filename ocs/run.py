@@ -36,7 +36,7 @@ def run(config):
 
             print('attempt: {} time elapsed: {}'.format(attempt, run_result.elapsed_time))
 
-        print('mean_cost: {}'.format(np.mean([run_result.cost for run_result in run_results])))
+        print('mean_cost: {}$'.format(np.mean([run_result.cost for run_result in run_results])))
         instances_with_run_results.append(InstanceWithRunResults(instance, run_results))
 
     policy = Policy(config['policy'])
