@@ -1,4 +1,6 @@
 import numpy.random as random
+
+from core.instance_with_run_results import InstanceWithRunResults
 from core.algorithm import Algorithm
 from core.policy import Policy
 

@@ -11,7 +11,6 @@ if __name__ == '__main__' and __package__ is None:
 
 from simulation import env
 from core.workload import Workload
-from core.instance_with_run_results import InstanceWithRunResults
 from algorithms.random_search import RandomSearch
 from algorithms.coordinate_descent import CoordinateDescent
 
