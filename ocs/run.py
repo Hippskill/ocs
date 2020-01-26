@@ -12,14 +12,16 @@ if __name__ == '__main__' and __package__ is None:
 from simulation import env
 from core.workload import Workload
 from algorithms.random_search import RandomSearch
-from algorithms.coordinate_descent import CoordinateDescent
+from algorithms.full_search import FullSearch
 
 
 def algorithm_from_config(config):
     if config['type'] == 'RandomSearch':
         return RandomSearch(config)
-    elif config['type'] == 'CoordinateDescent':
-        return CoordinateDescent(config)
+    elif config['type'] == 'FullSearch':
+        return FullSearch(config)
+    else:
+        raise Exception('unexpected algorithm type: {}'.format(config['type']))
 
 
 def run(config):
