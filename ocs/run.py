@@ -11,38 +11,30 @@ if __name__ == '__main__' and __package__ is None:
 
 from simulation import env
 from core.workload import Workload
-from core.policy import Policy
 from core.instance_with_run_results import InstanceWithRunResults
+from algorithms.random_search import RandomSearch
+from algorithms.coordinate_descent import CoordinateDescent
+
+
+def algorithm_from_config(config):
+    if config['type'] == 'RandomSearch':
+        return RandomSearch(config)
+    elif config['type'] == 'CoordinateDescent':
+        return CoordinateDescent(config)
 
 
 def run(config):
     print(config)
 
     workload = Workload(config['workload']['image'], config['workload']['name'])
-    algrotihm = config['algorithm']
+    algorithm = algorithm_from_config(config['algorithm'])
     simulation = env.Simulation(config['simulation'])
 
     print('start optimizing configuration for workload:', workload)
-    print('instances to check:', ', '.join(map(str, simulation.get_avaliable_instances())))
+    print('avaliable instances:', ', '.join(map(str, simulation.get_avaliable_instances())))
 
-    instances_with_run_results = []
-    for instance in simulation.get_avaliable_instances():
-        print('try instance', instance)
-
-        run_results = []
-        for attempt in range(algrotihm['episodes']):
-            run_result = simulation.run_workload_on_instance(workload, instance)
-
-            run_results.append(run_result)
-
-            print('attempt: {} time elapsed: {}'.format(attempt, run_result.elapsed_time))
-
-        print('mean_cost: {}$'.format(np.mean([run_result.cost for run_result in run_results])))
-        instances_with_run_results.append(InstanceWithRunResults(instance, run_results))
-
-    policy = Policy(config['policy'])
-    best_instance = policy.choose_best_instance(instances_with_run_results)
-    print('best_instance for workload: {} is {}'.format(workload, best_instance))
+    best_instance = algorithm.choose_best_instance(workload, simulation)
+    print('best instance is', best_instance)
 
 
 def main():

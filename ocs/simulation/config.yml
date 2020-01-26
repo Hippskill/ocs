@@ -14,7 +14,11 @@ workload:
   image: 063fce619bc1
 
 algorithm:
-  episodes: 1
+  type: RandomSearch
 
-policy:
-  max_cost: 200
+  runs_per_instance: 3
+  instances_to_evaluate: 5
+  seed: 42
+
+  policy:
+    max_cost: 1
