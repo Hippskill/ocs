@@ -60,7 +60,7 @@ class CoordinateDescent(Algorithm):
                 break
 
             best_instance = self.policy.choose_best_instance(instances_with_run_results)
-            best_coordinates[coordinate] = best_instance.getattr(coordinate)
+            best_coordinates[coordinate] = getattr(best_instance, coordinate)
 
         print('best coordinates is', best_coordinates)
         return best_instance
