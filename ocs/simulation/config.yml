@@ -14,7 +14,7 @@ workload:
   image: 063fce619bc1
 
 algorithm:
-  type: RandomSearch
+  type: CoordinateDescent
 
   runs_per_instance: 3
   instances_to_evaluate: 5

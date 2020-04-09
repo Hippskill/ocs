@@ -13,6 +13,7 @@ from simulation import env
 from core.workload import Workload
 from algorithms.random_search import RandomSearch
 from algorithms.full_search import FullSearch
+from algorithms.coordinate_descent import CoordinateDescent
 
 
 def algorithm_from_config(config):
@@ -20,6 +21,8 @@ def algorithm_from_config(config):
         return RandomSearch(config)
     elif config['type'] == 'FullSearch':
         return FullSearch(config)
+    elif config['type'] == 'CoordinateDescent':
+        return CoordinateDescent(config)
     else:
         raise Exception('unexpected algorithm type: {}'.format(config['type']))
 
