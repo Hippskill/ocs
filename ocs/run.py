@@ -14,6 +14,7 @@ from core.workload import Workload
 from algorithms.random_search import RandomSearch
 from algorithms.full_search import FullSearch
 from algorithms.coordinate_descent import CoordinateDescent
+from algorithms.scout import Scout
 
 
 def algorithm_from_config(config):
@@ -23,6 +24,8 @@ def algorithm_from_config(config):
         return FullSearch(config)
     elif config['type'] == 'CoordinateDescent':
         return CoordinateDescent(config)
+    elif config['type'] == 'Scout':
+        return Scout(config)
     else:
         raise Exception('unexpected algorithm type: {}'.format(config['type']))
 
@@ -38,6 +41,11 @@ def run(config):
     print('avaliable instances:', ', '.join(map(str, simulation.get_avaliable_instances())))
 
     best_instance = algorithm.choose_best_instance(workload, simulation)
+
+    if best_instance is None:
+        print('best instance not found :(')
+        return
+
     print('best instance is', best_instance)
     print('best instance metrics', simulation.run_workload_on_instance(workload, best_instance))
     print('cost', simulation.total_cost())
