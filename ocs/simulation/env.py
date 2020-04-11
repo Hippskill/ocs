@@ -4,6 +4,7 @@ import time
 from core.instance import Instance
 from core.container_metrics import ContainerMetrics
 from core.run_result import RunResult
+from core.instance_with_run_results import InstanceWithRunResults
 
 from simulation.docker_utils import run_container
 
