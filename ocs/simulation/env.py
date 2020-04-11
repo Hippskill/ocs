@@ -29,12 +29,18 @@ class Simulation:
         self._metrics_poll_interval = config['metrics_poll_interval']
         self._total_elapsed_time = 0
         self._total_cost = 0
+        self._run_cache = {}
 
     def get_avaliable_instances(self):
         return self._avaliable_instances
 
-    #TODO(nmikhaylov): add caching by pair (workload, instance)
     def run_workload_on_instance(self, workload, instance):
+        # TODO(nmikhaylov): implement __hash__ ?
+        cache_key = '{}_{}'.format(str(workload), str(instance))
+
+        if cache_key in self._run_cache:
+            return self._run_cache[cache_key]
+
         start_time = time.time()
 
         container_id = run_container(
@@ -60,7 +66,8 @@ class Simulation:
         self._total_elapsed_time += elapsed_time
         self._total_cost += weighted_cost
 
-        return RunResult(elapsed_time, weighted_cost, container_metrics)
+        self._run_cache[cache_key] = RunResult(elapsed_time, weighted_cost, container_metrics)
+        return self._run_cache[cache_key]
 
     def total_cost(self):
         return self._total_cost
