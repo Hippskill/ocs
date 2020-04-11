@@ -14,11 +14,13 @@ workload:
   image: 063fce619bc1
 
 algorithm:
-  type: CoordinateDescent
+  type: Scout
 
   runs_per_instance: 3
   instances_to_evaluate: 5
   seed: 42
+  probability_threshold: 0.9
+  iters: 10
 
   policy:
     max_cost: 1
