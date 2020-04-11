@@ -6,6 +6,10 @@ class Instance:
         self.n_ram_gb = n_ram_gb
         self.cost_per_second = cost_per_second
 
+    @staticmethod
+    def coordinates():
+        return ('n_cpu', 'n_ram_gb')
+
     def __str__(self):
         return 'Instance(name={}, n_cpu={}, n_ram_gb={}, cost_per_second={})'.format(
             self.name,

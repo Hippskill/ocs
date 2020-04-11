@@ -2,15 +2,22 @@ import numpy.random as random
 
 from core.algorithm import Algorithm
 from core.policy import Policy
+from core.instance import Instance
 
 
 # TODO(nmikhaylov): unit-tests?
 def find_suitable_instances(avaliable_instances, best_coordinates):
     for instance in avaliable_instances:
-        best_cpu = best_coordinates['n_cpu']
-        best_ram = best_coordinates['n_ram_gb']
+        ok = True
+        for coordinate in Instance.coordinates():
+            best_value = best_coordinates[coordinate]
+            if best_value == None:
+                continue
+            if best_value != getattr(instance, coordinate):
+                ok = False
+                break
 
-        if (best_cpu == None or best_cpu == instance.n_cpu) and (best_ram == None or best_ram == instance.n_ram_gb):
+        if ok:
             yield instance
 
 
@@ -26,15 +33,13 @@ class CoordinateDescent(Algorithm):
 
         avaliable_instances = env.get_avaliable_instances()
 
-        # TODO(nmikhaylov): remove hardcode
-        value_by_coordinate = {
-            'n_cpu': set(),
-            'n_ram_gb': set(),
-        }
+        value_by_coordinate = {}
+        for coordinate in Instance.coordinates():
+            value_by_coordinate[coordinate] = set()
 
         for instance in avaliable_instances:
-            value_by_coordinate['n_cpu'].add(instance.n_cpu)
-            value_by_coordinate['n_ram_gb'].add(instance.n_ram_gb)
+            for coordinate in Instance.coordinates():
+                value_by_coordinate[coordinate].add(getattr(instance, coordinate))
 
         print('search space ', value_by_coordinate)
 
