@@ -9,5 +9,5 @@ class RunResult:
         return '{{ elapsed_time: {} cost: {} container_metrics: {} }}'.format(
             self.elapsed_time,
             self.cost,
-            map(str, self.container_metrics)
+            list(map(str, self.container_metrics))
         )
