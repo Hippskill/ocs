@@ -54,6 +54,6 @@ class Scout(Algorithm):
 
         for suitable_instance in suitable_instances:
             print('try', suitable_instance)
-            instances_with_run_results.append(self._get_run_results(workload, suitable_instance, env))
+            instances_with_run_results.append(env.run_workload_on_instance(workload, instance, self.runs_per_instance))
 
         return self.policy.choose_best_instance(instances_with_run_results)

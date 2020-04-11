@@ -34,13 +34,23 @@ class Simulation:
     def get_avaliable_instances(self):
         return self._avaliable_instances
 
-    def run_workload_on_instance(self, workload, instance):
+    def run_workload_on_instance(self, workload, instance, attempts):
         # TODO(nmikhaylov): implement __hash__ ?
         cache_key = '{}_{}'.format(str(workload), str(instance))
 
         if cache_key in self._run_cache:
             return self._run_cache[cache_key]
 
+        run_results = []
+        for attempt in range(attempts):
+            run_result = self._get_run_results(workload, instance)
+            run_results.append(run_result)
+            print('attempt: {} time elapsed: {}'.format(attempt, run_result.elapsed_time))
+
+        self._run_cache[cache_key] = InstanceWithRunResults(instance, run_results)
+        return self._run_cache[cache_key]
+
+    def _get_run_results(self, workload, instance):
         start_time = time.time()
 
         container_id = run_container(
@@ -66,8 +76,7 @@ class Simulation:
         self._total_elapsed_time += elapsed_time
         self._total_cost += weighted_cost
 
-        self._run_cache[cache_key] = RunResult(elapsed_time, weighted_cost, container_metrics)
-        return self._run_cache[cache_key]
+        return RunResult(elapsed_time, weighted_cost, container_metrics)
 
     def total_cost(self):
         return self._total_cost

@@ -58,7 +58,11 @@ class CoordinateDescent(Algorithm):
                 suitable_instances = find_suitable_instances(avaliable_instances, best_coordinates)
                 for suitable_instance in suitable_instances:
                     print('test suitable_instance', suitable_instance)
-                    instances_with_run_results.append(self._get_run_results(workload, suitable_instance, env))
+                    instances_with_run_results.append(env.run_workload_on_instance(
+                        workload,
+                        suitable_instance,
+                        self.runs_per_instance
+                    ))
 
             if len(instances_with_run_results) == 0:
                 print('not found any suitable_instance for coordinate: ', coordinate)
