@@ -7,3 +7,6 @@ class ContainerMetrics:
     @staticmethod
     def from_container_stats(stats):
         return ContainerMetrics(stats['cpu_stats'], stats['memory_stats'])
+
+    def __str__(self):
+        return '{{ cpu_stats: {} memory_stats: {} }}'.format(self.cpu_stats, self.memory_stats)
