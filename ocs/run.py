@@ -39,6 +39,9 @@ def run(config):
 
     best_instance = algorithm.choose_best_instance(workload, simulation)
     print('best instance is', best_instance)
+    print('best instance metrics', simulation.run_workload_on_instance(workload, best_instance))
+    print('cost', simulation.total_cost())
+    print('elapsed time', simulation.total_elapsed_time())
 
 
 def main():

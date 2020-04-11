@@ -20,16 +20,20 @@ def parse_avaliable_instances_from_config(config):
         raise Exception('unexpected simulation type: {}'.format(config['type']))
 
 
+# TODO(nmikhaylov): add base env class
 class Simulation:
     def __init__(self, config):
         self._docker_client = docker.from_env()
 
         self._avaliable_instances = parse_avaliable_instances_from_config(config)
         self._metrics_poll_interval = config['metrics_poll_interval']
+        self._total_elapsed_time = 0
+        self._total_cost = 0
 
     def get_avaliable_instances(self):
         return self._avaliable_instances
 
+    #TODO(nmikhaylov): add caching by pair (workload, instance)
     def run_workload_on_instance(self, workload, instance):
         start_time = time.time()
 
@@ -53,4 +57,13 @@ class Simulation:
         elapsed_time = finish_time - start_time
         weighted_cost = elapsed_time * instance.cost_per_second
 
+        self._total_elapsed_time += elapsed_time
+        self._total_cost += weighted_cost
+
         return RunResult(elapsed_time, weighted_cost, container_metrics)
+
+    def total_cost(self):
+        return self._total_cost
+
+    def total_elapsed_time(self):
+        return self._total_elapsed_time
