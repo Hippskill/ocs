@@ -1,7 +1,9 @@
 import numpy.random as random
+import numpy as np
 
 from core.algorithm import Algorithm
 from core.policy import Policy
+from core.instance import Instance
 
 
 class Scout(Algorithm):
@@ -25,6 +27,10 @@ class Scout(Algorithm):
 
         for _ in range(self.iters):
             suitable_instances = self.find_suitable_instances(best_instance, workload, env)
+
+            if len(suitable_instances) == 1:
+                break
+
             best_instance = self.select_best_instance(suitable_instances, workload, env)
 
         return  best_instance
@@ -37,23 +43,33 @@ class Scout(Algorithm):
         for instance in avaliable_instances:
             probability = self.estimate_probability(best_instance, instance)
 
+            print('candidate', instance, 'with probability', probability)
             if probability > self.probability_threshold:
-                print('add candidate', instance, 'with probability', probability)
                 suitable_instances.append(instance)
 
         return suitable_instances
 
     # returns probability that candidate instance will be better than best instance
     def estimate_probability(self, best_instance, candidate):
-        # TODO(nmikhaylov): implement compare
-        # ¯\_(ツ)_/¯
-        return random.random()
+        cost_diff = best_instance.cost_per_second - candidate.cost_per_second
+
+        diff_sum = 0.0
+        for coordinate in Instance.coordinates():
+            diff_sum += getattr(best_instance, coordinate) - getattr(candidate, coordinate)
+
+        weighted_diff = diff_sum * cost_diff * 10000
+
+        return 1 / (1 + np.exp(-weighted_diff))
 
     def select_best_instance(self, suitable_instances, workload, env):
         instances_with_run_results = []
 
         for suitable_instance in suitable_instances:
             print('try', suitable_instance)
-            instances_with_run_results.append(env.run_workload_on_instance(workload, instance, self.runs_per_instance))
+            instances_with_run_results.append(env.run_workload_on_instance(
+                workload,
+                suitable_instance,
+                self.runs_per_instance
+            ))
 
         return self.policy.choose_best_instance(instances_with_run_results)
