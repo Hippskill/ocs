@@ -6,8 +6,8 @@ simulation:
     max_ram_gb: 10
 
   costs:
-    cpu_core: 0.000010
-    ram_gb:   0.000001
+    cpu_core: 0.00010
+    ram_gb:   0.00001
 
   metrics_poll_interval: 0.1
 
@@ -21,7 +21,8 @@ algorithm:
   runs_per_instance: 3
   instances_to_evaluate: 5
   seed: 228
-  probability_threshold: 0.75
+  probability_threshold: 0.5
+  cost_adjust_coef: 1000
   iters: 10
 
   policy:

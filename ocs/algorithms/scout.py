@@ -14,6 +14,7 @@ class Scout(Algorithm):
         self.policy = Policy(config['policy'])
         self.probability_threshold = config['probability_threshold']
         self.iters = config['iters']
+        self.cost_adjust_coef = config['cost_adjust_coef']
 
     def choose_best_instance(self, workload, env):
         random.seed(self.seed)
@@ -51,14 +52,14 @@ class Scout(Algorithm):
 
     # returns probability that candidate instance will be better than best instance
     def estimate_probability(self, best_instance, candidate):
-        cost_diff = -(best_instance.cost_per_second - candidate.cost_per_second)
+        cost_diff = -(best_instance.cost_per_second - candidate.cost_per_second) * self.cost_adjust_coef
 
         diff_sum = 0.0
         for coordinate in Instance.coordinates():
             # TODO(nmikhaylov): add weight for coordinate
             diff_sum += getattr(best_instance, coordinate) - getattr(candidate, coordinate)
 
-        weighted_diff = diff_sum * cost_diff * 10000
+        weighted_diff = diff_sum * cost_diff
 
         return 1 / (1 + np.exp(-weighted_diff))
 
