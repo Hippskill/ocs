@@ -70,6 +70,7 @@ class Simulation:
 
             # TODO(nmikhaylov): also handle OOM as failure
             if time.time() - start_time > self._timeout:
+                container.stop()
                 failure = True
                 break
 
