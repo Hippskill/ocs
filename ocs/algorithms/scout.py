@@ -51,10 +51,11 @@ class Scout(Algorithm):
 
     # returns probability that candidate instance will be better than best instance
     def estimate_probability(self, best_instance, candidate):
-        cost_diff = best_instance.cost_per_second - candidate.cost_per_second
+        cost_diff = -(best_instance.cost_per_second - candidate.cost_per_second)
 
         diff_sum = 0.0
         for coordinate in Instance.coordinates():
+            # TODO(nmikhaylov): add weight for coordinate
             diff_sum += getattr(best_instance, coordinate) - getattr(candidate, coordinate)
 
         weighted_diff = diff_sum * cost_diff * 10000

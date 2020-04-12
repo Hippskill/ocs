@@ -6,8 +6,8 @@ simulation:
     max_ram_gb: 10
 
   costs:
-    cpu_core: 10
-    ram_gb: 1
+    cpu_core: 0.000010
+    ram_gb:   0.000001
 
   metrics_poll_interval: 0.1
 
@@ -16,7 +16,7 @@ workload:
   image: 063fce619bc1
 
 algorithm:
-  type: CoordinateDescent
+  type: Scout
 
   runs_per_instance: 3
   instances_to_evaluate: 5
