@@ -20,7 +20,7 @@ algorithm:
 
   runs_per_instance: 3
   instances_to_evaluate: 5
-  seed: 42
+  seed: 228
   probability_threshold: 0.75
   iters: 10
 

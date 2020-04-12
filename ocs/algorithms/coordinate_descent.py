@@ -52,6 +52,8 @@ class CoordinateDescent(Algorithm):
 
         best_instance = None
         for coordinate in coordinates:
+            print('search for best', coordinate)
+
             instances_with_run_results = []
             for coordinate_value in value_by_coordinate[coordinate]:
                 best_coordinates[coordinate] = coordinate_value
