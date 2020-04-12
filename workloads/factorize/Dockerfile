@@ -2,7 +2,7 @@ FROM gcc:latest as build
 COPY src /factorize_example/src
 
 WORKDIR /factorize_example
-RUN rm -rf build && mkdir build && g++ -lpthread -std=c++1z src/main.cpp -o build/factorize
+RUN rm -rf build && mkdir build && g++ -O2 -lpthread -std=c++1z src/main.cpp -o build/factorize
 
 FROM ubuntu:latest
 

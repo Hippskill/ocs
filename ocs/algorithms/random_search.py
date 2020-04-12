@@ -7,8 +7,7 @@ from core.policy import Policy
 class RandomSearch(Algorithm):
 
     def __init__(self, config):
-        self.instances_to_evaluate = config['instances_to_evaluate']
-
+        self.iters = config['iters']
         self.runs_per_instance = config['runs_per_instance']
         self.seed = config['seed']
         self.policy = Policy(config['policy'])
@@ -19,7 +18,7 @@ class RandomSearch(Algorithm):
         avaliable_instances = env.get_avaliable_instances()
         random_instaces_indeces = random.choice(
             len(avaliable_instances),
-            self.instances_to_evaluate,
+            self.iters,
             replace=False
         )
 
