@@ -54,6 +54,10 @@ class Simulation:
                 run_result.cost,
             ))
 
+            # TODO(nmikhaylov): threshold for failures?
+            if run_result.failure:
+                break
+
         self._run_cache[cache_key] = InstanceWithRunResults(instance, run_results)
         return self._run_cache[cache_key]
 
