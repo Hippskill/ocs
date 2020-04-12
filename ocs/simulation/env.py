@@ -66,7 +66,9 @@ class Simulation:
             memory=instance.n_ram_gb * 1024 * 1024 * 1024
         )
 
+        # TODO(nmikhaylov): string failure reason instaed of boolean flag?
         failure = False
+
         container_metrics = []
         while True:
             container = self._docker_client.containers.get(container_id[:12])
