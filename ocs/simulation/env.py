@@ -47,7 +47,12 @@ class Simulation:
         for attempt in range(attempts):
             run_result = self._get_run_results(workload, instance)
             run_results.append(run_result)
-            print('attempt: {} time elapsed: {}'.format(attempt, run_result.elapsed_time))
+            print('attempt: {} failure: {} time elapsed: {} cost: {}'.format(
+                attempt,
+                run_result.failure,
+                run_result.elapsed_time,
+                run_result.cost,
+            ))
 
         self._run_cache[cache_key] = InstanceWithRunResults(instance, run_results)
         return self._run_cache[cache_key]

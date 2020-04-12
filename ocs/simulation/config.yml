@@ -10,7 +10,7 @@ simulation:
     ram_gb:   0.00001
 
   metrics_poll_interval: 0.1
-  timeout: 100
+  timeout: 10
 
 workload:
   name: 'Factorize'
