@@ -30,11 +30,10 @@ cost 2.6544458959651003
 elapsed time 4254.68715763092
 
 # Scout
+best instance is Instance(name=custom, n_cpu=10, n_ram_gb=10, cost_per_second=0.0011)
 
-best instance is Instance(name=custom, n_cpu=4, n_ram_gb=4, cost_per_second=0.00044)
+best instance metrics instance: Instance(name=custom, n_cpu=10, n_ram_gb=10, cost_per_second=0.0011) failure: False mean_cost: 0.011059841187795003 mean_elapsed: 10.054401079813639
 
-best instance metrics instance: Instance(name=custom, n_cpu=4, n_ram_gb=4, cost_per_second=0.00044) failure: False mean_cost: 0.005966923866271973 mean_elapsed: 13.561190605163574
+cost 0.08218208559513092
 
-cost 0.5539909196352958
-
-elapsed time 1510.947480916977
+elapsed time 157.74241662025452
