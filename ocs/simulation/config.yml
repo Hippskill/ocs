@@ -17,13 +17,14 @@ workload:
   image: 063fce619bc1
 
 algorithm:
-  type: RandomSearch
+  type: Scout
 
   runs_per_instance: 3
   seed: 228
-  probability_threshold: 0.5
+  probability_threshold: 0.8
   cost_adjust_coef: 1000
   iters: 20
+  max_runs_per_iter: 3
 
   policy:
     max_cost: 1

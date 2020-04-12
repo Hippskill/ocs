@@ -14,6 +14,7 @@ class Scout(Algorithm):
         self.policy = Policy(config['policy'])
         self.probability_threshold = config['probability_threshold']
         self.iters = config['iters']
+        self.max_runs_per_iter = config['max_runs_per_iter']
         self.cost_adjust_coef = config['cost_adjust_coef']
 
     def choose_best_instance(self, workload, env):
@@ -37,7 +38,7 @@ class Scout(Algorithm):
         return  best_instance
 
     def find_suitable_instances(self, best_instance, workload, env):
-        suitable_instances = [best_instance]
+        suitable_instances = [(best_instance, 1.0)]
 
         avaliable_instances = env.get_avaliable_instances()
 
@@ -46,18 +47,19 @@ class Scout(Algorithm):
 
             print('candidate', instance, 'with probability', probability)
             if probability > self.probability_threshold:
-                suitable_instances.append(instance)
+                suitable_instances.append([instance, probability])
 
-        return suitable_instances
+        suitable_instances.sort(key=lambda x: -x[1])
+        return [suitable_instance[0] for suitable_instance in suitable_instances]
 
     # returns probability that candidate instance will be better than best instance
     def estimate_probability(self, best_instance, candidate):
-        cost_diff = -(best_instance.cost_per_second - candidate.cost_per_second) * self.cost_adjust_coef
+        cost_diff = (candidate.cost_per_second - best_instance.cost_per_second) * self.cost_adjust_coef
 
         diff_sum = 0.0
         for coordinate in Instance.coordinates():
             # TODO(nmikhaylov): add weight for coordinate
-            diff_sum += getattr(best_instance, coordinate) - getattr(candidate, coordinate)
+            diff_sum += getattr(candidate, coordinate) - getattr(best_instance, coordinate)
 
         weighted_diff = diff_sum * cost_diff
 
@@ -66,7 +68,7 @@ class Scout(Algorithm):
     def select_best_instance(self, suitable_instances, workload, env):
         instances_with_run_results = []
 
-        for suitable_instance in suitable_instances:
+        for suitable_instance in suitable_instances[:self.max_runs_per_iter]:
             print('try', suitable_instance)
             instances_with_run_results.append(env.run_workload_on_instance(
                 workload,
