@@ -1,11 +1,13 @@
 simulation:
-  type: aws
+  type: custom
 
   limits:
     max_cpu: 10
-    max_ram_gb: 5
+    max_ram_gb: 10
 
-  aws_data_path: simulation/aws/aws.csv
+  costs:
+    cpu_core: 10
+    ram_gb: 1
 
   metrics_poll_interval: 0.1
 
@@ -19,7 +21,7 @@ algorithm:
   runs_per_instance: 3
   instances_to_evaluate: 5
   seed: 42
-  probability_threshold: 0.9
+  probability_threshold: 0.75
   iters: 10
 
   policy:
