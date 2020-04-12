@@ -18,3 +18,13 @@ best instance metrics instance: Instance(name=custom, n_cpu=8, n_ram_gb=8, cost_
 cost 0.6248558017945288
 
 elapsed time 947.2764048576355
+
+# Full search
+
+best instance is Instance(name=custom, n_cpu=8, n_ram_gb=8, cost_per_second=0.00088)
+
+best instance metrics instance: Instance(name=custom, n_cpu=8, n_ram_gb=8, cost_per_second=0.00088) failure: False mean_cost: 0.009064132067362467 mean_elapsed: 10.300150076548258
+
+cost 2.6544458959651003
+
+elapsed time 4254.68715763092
