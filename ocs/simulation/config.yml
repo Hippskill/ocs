@@ -10,13 +10,14 @@ simulation:
     ram_gb:   0.00001
 
   metrics_poll_interval: 0.1
+  timeout: 100
 
 workload:
   name: 'Factorize'
   image: 063fce619bc1
 
 algorithm:
-  type: Scout
+  type: CoordinateDescent
 
   runs_per_instance: 3
   instances_to_evaluate: 5

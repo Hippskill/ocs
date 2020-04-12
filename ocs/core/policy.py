@@ -7,6 +7,9 @@ class Policy:
         best_candidate = None
 
         for instance_with_run_results in instances_with_run_results:
+            if instance_with_run_results.failure:
+                continue
+
             if instance_with_run_results.mean_cost <= self.max_cost:
                 if best_candidate is None or\
                         best_candidate.mean_elapsed > instance_with_run_results.mean_elapsed:

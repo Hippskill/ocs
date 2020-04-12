@@ -28,6 +28,7 @@ class Simulation:
 
         self._avaliable_instances = parse_avaliable_instances_from_config(config)
         self._metrics_poll_interval = config['metrics_poll_interval']
+        self._timeout = config['timeout']
         self._total_elapsed_time = 0
         self._total_cost = 0
         self._run_cache = {}
@@ -60,11 +61,18 @@ class Simulation:
             memory=instance.n_ram_gb * 1024 * 1024 * 1024
         )
 
+        failure = False
         container_metrics = []
         while True:
             container = self._docker_client.containers.get(container_id[:12])
             if container.status != 'running':
                 break
+
+            # TODO(nmikhaylov): also handle OOM as failure
+            if time.time() - start_time > self._timeout:
+                failure = True
+                break
+
             container_metrics.append(ContainerMetrics.from_container_stats(
                 container.stats(stream=False)
             ))
@@ -77,7 +85,7 @@ class Simulation:
         self._total_elapsed_time += elapsed_time
         self._total_cost += weighted_cost
 
-        return RunResult(elapsed_time, weighted_cost, container_metrics)
+        return RunResult(failure, elapsed_time, weighted_cost, container_metrics)
 
     def total_cost(self):
         return self._total_cost
