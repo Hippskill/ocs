@@ -65,6 +65,7 @@ class CoordinateDescent(Algorithm):
                         suitable_instance,
                         self.runs_per_instance
                     ))
+                    break
 
             if len(instances_with_run_results) == 0:
                 print('not found any suitable_instance for coordinate: ', coordinate)
