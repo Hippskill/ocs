@@ -6,7 +6,7 @@ from core.container_metrics import ContainerMetrics
 from core.run_result import RunResult
 from core.env import BaseEnv
 
-from simulation.docker_utils import run_container
+from docker.docker_utils import run_container
 
 from simulation.custom import custom
 from simulation.aws import aws
