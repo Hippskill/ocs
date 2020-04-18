@@ -9,7 +9,7 @@ if __name__ == '__main__' and __package__ is None:
    from os import sys, path
    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
-from simulation import env
+from simulation.env import SimulationEnv
 from core.workload import Workload
 from algorithms.random_search import RandomSearch
 from algorithms.full_search import FullSearch
@@ -35,7 +35,7 @@ def run(config):
 
     workload = Workload(config['workload']['image'], config['workload']['name'])
     algorithm = algorithm_from_config(config['algorithm'])
-    simulation = env.Simulation(config['simulation'])
+    simulation = SimulationEnv(config['simulation'])
 
     print('start optimizing configuration for workload:', workload)
     print('avaliable instances:', ', '.join(map(str, simulation.get_avaliable_instances())))
