@@ -34,7 +34,7 @@ def algorithm_from_config(config):
 def env_from_config(config):
     if config['type'] == 'Simulation':
         return SimulationEnv(config['simulation'])
-    elif config['type'] == 'pulumi':
+    elif config['type'] == 'Pulumi':
         return PulumiEnv(config['pulumi'])
     else:
         raise Exception('unexpected env type: {}'.format(config['type']))
