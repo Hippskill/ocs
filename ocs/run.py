@@ -10,6 +10,7 @@ if __name__ == '__main__' and __package__ is None:
    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 from simulation.env import SimulationEnv
+from ray.env import RayEnv
 from core.workload import Workload
 from algorithms.random_search import RandomSearch
 from algorithms.full_search import FullSearch
@@ -30,26 +31,35 @@ def algorithm_from_config(config):
         raise Exception('unexpected algorithm type: {}'.format(config['type']))
 
 
+def env_from_config(config):
+    if config['type'] == 'Simulation':
+        return SimulationEnv(config['simulation'])
+    elif config['type'] == 'Ray':
+        return RayEnv(config['ray'])
+    else:
+        raise Exception('unexpected env type: {}'.format(config['type']))
+
+
 def run(config):
     print(config)
 
     workload = Workload(config['workload']['image'], config['workload']['name'])
     algorithm = algorithm_from_config(config['algorithm'])
-    simulation = SimulationEnv(config['simulation'])
+    env = env_from_config(config['env'])
 
     print('start optimizing configuration for workload:', workload)
-    print('avaliable instances:', ', '.join(map(str, simulation.get_avaliable_instances())))
+    print('avaliable instances:', ', '.join(map(str, env.get_avaliable_instances())))
 
-    best_instance = algorithm.choose_best_instance(workload, simulation)
+    best_instance = algorithm.choose_best_instance(workload, env)
 
     if best_instance is None:
         print('best instance not found :(')
         return
 
     print('best instance is', best_instance)
-    print('best instance metrics', simulation.run_workload_on_instance(workload, best_instance, attempts=1))
-    print('cost', simulation.total_cost())
-    print('elapsed time', simulation.total_elapsed_time())
+    print('best instance metrics', env.run_workload_on_instance(workload, best_instance, attempts=1))
+    print('cost', env.total_cost())
+    print('elapsed time', env.total_elapsed_time())
 
 
 def main():

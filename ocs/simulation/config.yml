@@ -1,16 +1,19 @@
-simulation:
-  type: custom
+env:
+  type: Simulation
 
-  limits:
-    max_cpu: 10
-    max_ram_gb: 10
+  simulation:
+    type: custom
 
-  costs:
-    cpu_core: 0.00010
-    ram_gb:   0.00001
+    limits:
+      max_cpu: 10
+      max_ram_gb: 10
 
-  metrics_poll_interval: 0.1
-  timeout: 20
+    costs:
+      cpu_core: 0.00010
+      ram_gb:   0.00001
+
+    metrics_poll_interval: 0.1
+    timeout: 20
 
 workload:
   name: 'Factorize'
