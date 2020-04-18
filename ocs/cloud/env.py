@@ -1,5 +1,5 @@
 from core.env import BaseEnv
-from azure import Azure
+from cloud.azure.azure import Azure
 
 
 class CloudEnv(BaseEnv):
