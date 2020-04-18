@@ -31,14 +31,12 @@ class SimulationEnv(BaseEnv):
         self._available_instances = parse_available_instances_from_config(config)
         self._metrics_poll_interval = config['metrics_poll_interval']
         self._timeout = config['timeout']
-        self._total_elapsed_time = 0
-        self._total_cost = 0
         self._run_cache = {}
 
     def get_available_instances(self):
         return self._available_instances
 
-    def _get_run_results(self, workload, instance):
+    def _get_run_result(self, workload, instance):
         start_time = time.time()
 
         container_id = run_container(
@@ -71,13 +69,4 @@ class SimulationEnv(BaseEnv):
         elapsed_time = finish_time - start_time
         weighted_cost = elapsed_time * instance.cost_per_second
 
-        self._total_elapsed_time += elapsed_time
-        self._total_cost += weighted_cost
-
         return RunResult(failure, elapsed_time, weighted_cost, container_metrics)
-
-    def total_cost(self):
-        return self._total_cost
-
-    def total_elapsed_time(self):
-        return self._total_elapsed_time

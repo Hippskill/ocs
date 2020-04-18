@@ -30,7 +30,6 @@ class Azure:
     def __init__(self):
         self._available_instances = None
 
-
     def get_available_instances(self):
         if self._available_instances is not None:
             return self._available_instances
@@ -39,3 +38,6 @@ class Azure:
         list_sizes_json = json.loads(az_vm()['list-sizes']['-l']['westus']())
         self._available_instances = parse_instances(list_sizes_json)
         return self._available_instances
+
+    def get_run_result(workload, instance):
+        return None
