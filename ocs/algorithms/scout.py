@@ -20,11 +20,11 @@ class Scout(Algorithm):
     def choose_best_instance(self, workload, env):
         random.seed(self.seed)
 
-        avaliable_instances = env.get_avaliable_instances()
+        available_instances = env.get_available_instances()
 
-        random.shuffle(avaliable_instances)
+        random.shuffle(available_instances)
 
-        best_instance = avaliable_instances[0]
+        best_instance = available_instances[0]
         print('start scout from', best_instance)
 
         for _ in range(self.iters):
@@ -40,9 +40,9 @@ class Scout(Algorithm):
     def find_suitable_instances(self, best_instance, workload, env):
         suitable_instances = [(best_instance, 1.0)]
 
-        avaliable_instances = env.get_avaliable_instances()
+        available_instances = env.get_available_instances()
 
-        for instance in avaliable_instances:
+        for instance in available_instances:
             probability = self.estimate_probability(best_instance, instance)
 
             print('candidate', instance, 'with probability', probability)

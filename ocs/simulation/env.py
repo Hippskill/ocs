@@ -12,7 +12,7 @@ from simulation.custom import custom
 from simulation.aws import aws
 
 
-def parse_avaliable_instances_from_config(config):
+def parse_available_instances_from_config(config):
     if config['type'] == 'custom':
         return custom.load_instaces(config)
     elif config['type'] == 'aws':
@@ -28,15 +28,15 @@ class SimulationEnv(BaseEnv):
 
         self._docker_client = docker.from_env()
 
-        self._avaliable_instances = parse_avaliable_instances_from_config(config)
+        self._available_instances = parse_available_instances_from_config(config)
         self._metrics_poll_interval = config['metrics_poll_interval']
         self._timeout = config['timeout']
         self._total_elapsed_time = 0
         self._total_cost = 0
         self._run_cache = {}
 
-    def get_avaliable_instances(self):
-        return self._avaliable_instances
+    def get_available_instances(self):
+        return self._available_instances
 
     def _get_run_results(self, workload, instance):
         start_time = time.time()

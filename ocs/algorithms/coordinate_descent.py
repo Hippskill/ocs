@@ -6,8 +6,8 @@ from core.instance import Instance
 
 
 # TODO(nmikhaylov): unit-tests?
-def find_suitable_instances(avaliable_instances, best_coordinates):
-    for instance in avaliable_instances:
+def find_suitable_instances(available_instances, best_coordinates):
+    for instance in available_instances:
         ok = True
         for coordinate in Instance.coordinates():
             best_value = best_coordinates[coordinate]
@@ -31,13 +31,13 @@ class CoordinateDescent(Algorithm):
     def choose_best_instance(self, workload, env):
         random.seed(self.seed)
 
-        avaliable_instances = env.get_avaliable_instances()
+        available_instances = env.get_available_instances()
 
         value_by_coordinate = {}
         for coordinate in Instance.coordinates():
             value_by_coordinate[coordinate] = set()
 
-        for instance in avaliable_instances:
+        for instance in available_instances:
             for coordinate in Instance.coordinates():
                 value_by_coordinate[coordinate].add(getattr(instance, coordinate))
 
@@ -57,7 +57,7 @@ class CoordinateDescent(Algorithm):
             instances_with_run_results = []
             for coordinate_value in value_by_coordinate[coordinate]:
                 best_coordinates[coordinate] = coordinate_value
-                suitable_instances = find_suitable_instances(avaliable_instances, best_coordinates)
+                suitable_instances = find_suitable_instances(available_instances, best_coordinates)
                 for suitable_instance in suitable_instances:
                     print('test suitable_instance', suitable_instance)
                     instances_with_run_results.append(env.run_workload_on_instance(

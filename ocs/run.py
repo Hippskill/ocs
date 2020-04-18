@@ -48,7 +48,7 @@ def run(config):
     env = env_from_config(config['env'])
 
     print('start optimizing configuration for workload:', workload)
-    print('avaliable instances:', ', '.join(map(str, env.get_avaliable_instances())))
+    print('available instances:', ', '.join(map(str, env.get_available_instances())))
 
     best_instance = algorithm.choose_best_instance(workload, env)
 

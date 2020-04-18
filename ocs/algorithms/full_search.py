@@ -10,10 +10,10 @@ class FullSearch(Algorithm):
         self.policy = Policy(config['policy'])
 
     def choose_best_instance(self, workload, env):
-        avaliable_instances = env.get_avaliable_instances()
+        available_instances = env.get_available_instances()
 
         instances_with_run_results = []
-        for instance in avaliable_instances:
+        for instance in available_instances:
             print('try instance', instance)
             instances_with_run_results.append(env.run_workload_on_instance(workload, instance, self.runs_per_instance))
 
