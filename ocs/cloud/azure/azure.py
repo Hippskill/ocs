@@ -25,7 +25,7 @@ def parse_instances(pricing, list_sizes_json):
             name=name,
             n_cpu=int(size['numberOfCores']),
             n_ram_gb=int(size['memoryInMb']) // 1024,
-            cost_per_second=float(cost_per_second) / 60 / 60
+            cost_per_second=cost_per_second
         ))
         print(str(available_instances[-1]))
     return available_instances
@@ -43,7 +43,7 @@ class Pricing:
                     continue
 
                 name, price = line.split()
-                self._price_by_name[name] = price
+                self._price_by_name[name] = float(price) / 60 / 60
 
     def get_cost_per_second(self, name):
         name = str.lower(name)
