@@ -10,7 +10,7 @@ if __name__ == '__main__' and __package__ is None:
    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 from simulation.env import SimulationEnv
-from ray.env import RayEnv
+from pulumi.env import PulumiEnv
 from core.workload import Workload
 from algorithms.random_search import RandomSearch
 from algorithms.full_search import FullSearch
@@ -34,8 +34,8 @@ def algorithm_from_config(config):
 def env_from_config(config):
     if config['type'] == 'Simulation':
         return SimulationEnv(config['simulation'])
-    elif config['type'] == 'Ray':
-        return RayEnv(config['ray'])
+    elif config['type'] == 'pulumi':
+        return PulumiEnv(config['pulumi'])
     else:
         raise Exception('unexpected env type: {}'.format(config['type']))
 

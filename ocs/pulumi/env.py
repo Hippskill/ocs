@@ -1,7 +1,7 @@
 from core.env import BaseEnv
 
 
-class RayEnv(BaseEnv):
+class PulumiEnv(BaseEnv):
     def __init__(self, config):
         super().__init__(config)
 
