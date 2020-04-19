@@ -60,11 +60,17 @@ class CoordinateDescent(Algorithm):
                 suitable_instances = find_suitable_instances(available_instances, best_coordinates)
                 for suitable_instance in suitable_instances:
                     print('test suitable_instance', suitable_instance)
-                    instances_with_run_results.append(env.run_workload_on_instance(
+                    results = env.run_workload_on_instance(
                         workload,
                         suitable_instance,
                         self.runs_per_instance
-                    ))
+                    )
+
+                    # allocation failed
+                    if results.failure and results.mean_cost == 0.0:
+                        continue
+
+                    instances_with_run_results.append(results)
                     break
 
             if len(instances_with_run_results) == 0:
