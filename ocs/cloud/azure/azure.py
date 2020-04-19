@@ -97,6 +97,7 @@ class Azure:
 
         az_vm()['delete'] \
             ['--resource-group', 'ocs_westus'] \
-            ['--name', vm_name] & plumbum.FG
+            ['--name', vm_name] \
+            ['--yes'] & plumbum.FG
 
         return run_result
