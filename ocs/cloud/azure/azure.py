@@ -3,7 +3,7 @@ import plumbum
 import time
 
 from cloud.azure.pricing import Pricing
-from cloud.utils import setup_vm
+from cloud.utils import setup_vm, make_ssh
 from core.instance import Instance
 
 
@@ -39,6 +39,7 @@ class Azure:
     def __init__(self, config):
         self._pricing = Pricing(config['pricing'])
         self._available_instances = None
+        self._config_str = json.dumps(config)
 
     def get_available_instances(self):
         if self._available_instances is not None:
@@ -59,7 +60,7 @@ class Azure:
             ['--admin-username', 'azureuser'] \
             ['--generate-ssh-keys'] \
             ['--size', instance.name]
-        # create_vm & plumbum.FG
+        create_vm & plumbum.FG
 
         vm_info = None
         found = False
@@ -83,4 +84,18 @@ class Azure:
 
         setup_vm(user='azureuser', address=ip_address)
 
-        return None
+        ssh = make_ssh(user='azureuser', address=ip_address)
+
+        remote_runner_cmd = './ocs/ocs/remote_runner.py --workload \'{}\' --instance \'{}\' --config \'{}\''.format(
+            workload.to_json_str(),
+            instance.to_json_str(),
+            self._config_str
+        )
+
+        run_result = RunResult.from_json_str(ssh['{}'.format(remote_runner_cmd)])
+
+        az_vm()['delete'] \
+            ['--resource-group', 'ocs_westus'] \
+            ['--name', vm_name] & plumbum.FG
+
+        return run_result

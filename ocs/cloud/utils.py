@@ -1,16 +1,20 @@
 import os
 import plumbum
 
+from plumbum import FG
+
+
+def make_ssh(user, address):
+    vm_host = '{}@{}'.format(user, address)
+    return plumbum.local['ssh']['-o', 'StrictHostKeyChecking=no'][vm_host]
+
 
 def setup_vm(user, address):
     vm_host = '{}@{}'.format(user, address)
 
-    scp = plumbum.local['scp']
-    ssh = plumbum.local['ssh']
+    scp = plumbum.local['scp']['-o', 'StrictHostKeyChecking=no']
+    ssh = make_ssh(user, address)
 
-    scripts_dir = 'cloud/scripts'
-    for script in os.listdir(scripts_dir):
-        print('deploy and execute script', script)
-        path_to_script = os.path.join(scripts_dir, script)
-        scp[path_to_script]['{}:.'.format(vm_host)] & plumbum.FG
-        ssh[vm_host]['./{}'.format(script)] & plumbum.FG
+    scp['cloud/scripts/setup_ocs.sh']['{}:.'.format(vm_host)] & FG
+    ssh['./setup_ocs.sh'] & FG
+    ssh['./ocs/ocs/cloud/scripts/install_docker.sh'] & FG
