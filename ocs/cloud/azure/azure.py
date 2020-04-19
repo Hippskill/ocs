@@ -46,5 +46,5 @@ class Azure:
         self._available_instances = parse_instances(self._pricing, list_sizes_json)
         return self._available_instances
 
-    def get_run_result(workload, instance):
+    def get_run_result(self, workload, instance):
         return None

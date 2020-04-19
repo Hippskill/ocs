@@ -23,7 +23,7 @@ env:
 
 workload:
   name: 'Factorize'
-  image: 063fce619bc1
+  image: hippskill/ocs-factorize:0.1.0
 
 algorithm:
   type: Scout
