@@ -16,12 +16,12 @@ class BaseEnv:
             return run_result
 
         run_results = []
+
+        self._allocate_instance(workload, instance)
         for attempt in range(attempts):
             run_result = self._get_run_result(
                 workload,
-                instance,
-                is_first=bool(attempt == 0),
-                is_last=bool(attempt + 1 == attempts)
+                instance
             )
 
             self._total_elapsed_time += run_result.elapsed_time
@@ -38,6 +38,7 @@ class BaseEnv:
             # TODO(nmikhaylov): threshold for failures?
             if run_result.failure:
                 break
+        self._deallocate_instance(workload, instance)
 
         run_result = InstanceWithRunResults(instance, run_results)
         self._cachalot.post(self._env_name, workload, instance, run_result)

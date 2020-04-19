@@ -16,6 +16,19 @@ def az_vm():
     return az()['vm']
 
 
+def get_ip_addres(vm_name):
+    #TODO(nmikhaylov): add limit for iterations
+    while True:
+        ip_info = json.loads(az_vm()['list-ip-addresses'] \
+            ['--resource-group', 'ocs_westus'] \
+            ['--name', vm_name]())
+
+        if len(ip_info) != 0:
+            return ip_info[0]['virtualMachine']['network']['publicIpAddresses'][0]['ipAddress']
+
+        time.sleep(10)
+
+
 def parse_instances(pricing, list_sizes_json):
     available_instances = []
     for size in list_sizes_json:
@@ -51,7 +64,7 @@ class Azure:
         self._available_instances = parse_instances(self._pricing, list_sizes_json)
         return self._available_instances
 
-    def get_run_result(self, workload, instance, is_first, is_last):
+    def allocate_instance(self, workload, instance):
         vm_name = 'vm_{}_{}'.format(workload.name, instance.name)
 
         create_vm = az_vm()['create'] \
@@ -61,31 +74,23 @@ class Azure:
             ['--admin-username', 'azureuser'] \
             ['--generate-ssh-keys'] \
             ['--size', instance.name]
+        create_vm & plumbum.FG
 
-        if is_first:
-            create_vm & plumbum.FG
-
-        vm_info = None
-        found = False
-        #TODO(nmikhaylov): add limit for iterations
-        while not found:
-            vm_list = json.loads(az_vm()['list']())
-            for vm in vm_list:
-                if vm['name'] == vm_name:
-                    found = True
-                    vm_info = vm
-                    break
-
-            if not found:
-                time.sleep(10)
-
-        ip_info = json.loads(az_vm()['list-ip-addresses'] \
-            ['--resource-group', 'ocs_westus'] \
-            ['--name', vm_name]())
-
-        ip_address = ip_info[0]['virtualMachine']['network']['publicIpAddresses'][0]['ipAddress']
+        ip_address = get_ip_addres(vm_name)
 
         setup_vm(user='azureuser', address=ip_address)
+
+    def deallocate_instance(self, workload, instance):
+        vm_name = 'vm_{}_{}'.format(workload.name, instance.name)
+
+        az_vm()['delete'] \
+            ['--resource-group', 'ocs_westus'] \
+            ['--name', vm_name] \
+            ['--yes'] & plumbum.FG
+
+    def get_run_result(self, workload, instance):
+        vm_name = 'vm_{}_{}'.format(workload.name, instance.name)
+        ip_address = get_ip_addres(vm_name)
 
         ssh = make_ssh(user='azureuser', address=ip_address)
 
@@ -94,13 +99,6 @@ class Azure:
             instance.to_json_str(),
             self._config_str
         )
-        run_result = RunResult.from_json_str(ssh[remote_runner_cmd]())
-        print(run_result)
-
-        if is_last:
-            az_vm()['delete'] \
-                ['--resource-group', 'ocs_westus'] \
-                ['--name', vm_name] \
-                ['--yes'] & plumbum.FG
-
+        run_result_str = ssh[remote_runner_cmd]()
+        run_result = RunResult.from_json_str(run_result_str)
         return run_result
