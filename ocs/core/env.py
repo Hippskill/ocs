@@ -2,17 +2,18 @@ from core.instance_with_run_results import InstanceWithRunResults
 
 class BaseEnv:
 
-    def __init__(self, config):
+    def __init__(self, config, cachalot):
+        self._env_name = config['name']
         self._run_cache = {}
         self._total_cost = 0
         self._total_elapsed_time = 0
+        self._cachalot = cachalot
 
     def run_workload_on_instance(self, workload, instance, attempts):
-        # TODO(nmikhaylov): implement __hash__ ?
-        cache_key = '{}_{}'.format(str(workload), str(instance))
-
-        if cache_key in self._run_cache:
-            return self._run_cache[cache_key]
+        run_result = self._cachalot.get(self._env_name, workload, instance)
+        if run_result is not None:
+            print('got run run_result from cachalot', run_result)
+            return run_result
 
         run_results = []
         for attempt in range(attempts):
@@ -33,8 +34,9 @@ class BaseEnv:
             if run_result.failure:
                 break
 
-        self._run_cache[cache_key] = InstanceWithRunResults(instance, run_results)
-        return self._run_cache[cache_key]
+        run_result = InstanceWithRunResults(instance, run_results)
+        self._cachalot.post(self._env_name, workload, instance, run_result)
+        return run_result
 
     def total_cost(self):
         return self._total_cost

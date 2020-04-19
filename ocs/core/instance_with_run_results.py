@@ -1,4 +1,9 @@
+import json
 import numpy as np
+
+from core.instance import Instance
+from core.run_result import RunResult
+
 
 class InstanceWithRunResults:
 
@@ -19,4 +24,27 @@ class InstanceWithRunResults:
             self.failure,
             self.mean_cost,
             self.mean_elapsed,
+        )
+
+    def to_json_str(self):
+        return json.dumps({
+            'instance': self.instance.to_json_str(),
+            'failure': self.failure,
+            'mean_cost': self.mean_cost,
+            'mean_elapsed': self.mean_elapsed
+        })
+
+    @staticmethod
+    def from_json_str(json_str):
+        data = json.loads(json_str)
+        return InstanceWithRunResults(
+            Instance.from_json_str(data['instance']),
+            run_results=[
+                RunResult(
+                    failure=bool(data['failure']),
+                    elapsed_time=float(data['mean_elapsed']),
+                    cost=float(data['mean_cost']),
+                    container_metrics={}
+                )
+            ]
         )

@@ -9,13 +9,14 @@ if __name__ == '__main__' and __package__ is None:
    from os import sys, path
    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
-from simulation.env import SimulationEnv
+from algorithms.coordinate_descent import CoordinateDescent
+from algorithms.full_search import FullSearch
+from algorithms.random_search import RandomSearch
+from algorithms.scout import Scout
+from cachalot.client import CachalotClient
 from cloud.env import CloudEnv
 from core.workload import Workload
-from algorithms.random_search import RandomSearch
-from algorithms.full_search import FullSearch
-from algorithms.coordinate_descent import CoordinateDescent
-from algorithms.scout import Scout
+from simulation.env import SimulationEnv
 
 
 def algorithm_from_config(config):
@@ -31,11 +32,11 @@ def algorithm_from_config(config):
         raise Exception('unexpected algorithm type: {}'.format(config['type']))
 
 
-def env_from_config(config):
+def env_from_config(config, cachalot):
     if config['type'] == 'Simulation':
-        return SimulationEnv(config['simulation'])
+        return SimulationEnv(config['simulation'], cachalot)
     elif config['type'] == 'Cloud':
-        return CloudEnv(config['cloud'])
+        return CloudEnv(config['cloud'], cachalot)
     else:
         raise Exception('unexpected env type: {}'.format(config['type']))
 
@@ -45,7 +46,8 @@ def run(config):
 
     workload = Workload(config['workload']['image'], config['workload']['name'])
     algorithm = algorithm_from_config(config['algorithm'])
-    env = env_from_config(config['env'])
+    cachalot = CachalotClient(config['cachalot']['host'], config['cachalot']['port'])
+    env = env_from_config(config['env'], cachalot)
 
     print('start optimizing configuration for workload:', workload)
     print('available instances:', ', '.join(map(str, env.get_available_instances())))

@@ -1,7 +1,13 @@
+cachalot:
+  host: 127.0.0.1
+  port: 13866
+
 env:
   type: Simulation
 
   simulation:
+    name: simulation
+
     type: custom
 
     limits:

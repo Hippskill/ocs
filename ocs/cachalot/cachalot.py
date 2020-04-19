@@ -27,9 +27,13 @@ class Cachelot:
         @app.route('/run_result', methods=['GET', 'POST'])
         def run_result_handler():
             if request.method == 'POST':
-                self.save_run_result(request.data)
+                return self.save_run_result(request.data)
             elif request.method == 'GET':
                 return self.get_run_result(request.data)
+
+        @app.route('/healthcheck', methods=['GET'])
+        def healthcheck():
+            return 'ok'
 
         self.server = make_server(self.host, self.port, app)
         self.app_context = app.app_context()
@@ -41,6 +45,7 @@ class Cachelot:
         value = data['value']
         self._db.set(key, value)
         self._db.dump()
+        return 'ok'
 
     def get_run_result(self, data_bytes):
         data = json.loads(data_bytes, encoding='utf-8')
@@ -48,8 +53,6 @@ class Cachelot:
 
         if self._db.exists(key):
             data['value'] = self._db.get(key)
-        else:
-            data['value'] = None
 
         return data
 

@@ -18,8 +18,8 @@ def parse_available_instances_from_config(config):
 
 class SimulationEnv(BaseEnv):
 
-    def __init__(self, config):
-        super().__init__(config)
+    def __init__(self, config, cachalot):
+        super().__init__(config, cachalot)
 
         self._local_runner = LocalRunner(config)
         self._available_instances = parse_available_instances_from_config(config)
