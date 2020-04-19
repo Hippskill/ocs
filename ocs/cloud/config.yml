@@ -5,8 +5,10 @@ cachalot:
 env:
   type: Cloud
 
-  azure:
+  cloud:
     name: cloud_azure
+
+    pricing: cloud/azure/pricing.txt
 
     metrics_poll_interval: 0.1
     timeout: 20
