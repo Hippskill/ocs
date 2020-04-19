@@ -28,6 +28,8 @@ class Scout(Algorithm):
         print('start scout from', best_instance)
 
         for _ in range(self.iters):
+            assert best_instance is not None
+
             suitable_instances = self.find_suitable_instances(best_instance, workload, env)
 
             if len(suitable_instances) == 1:

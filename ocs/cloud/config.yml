@@ -10,6 +10,9 @@ env:
 
     pricing: cloud/azure/pricing.txt
 
+    max_cpu: 16
+    max_ram: 20
+
     metrics_poll_interval: 0.1
     timeout: 20
 
@@ -25,7 +28,7 @@ algorithm:
   probability_threshold: 0.8
   cost_adjust_coef: 1000
   iters: 20
-  max_runs_per_iter: 3
+  max_runs_per_iter: 20
 
   policy:
     max_cost: 1

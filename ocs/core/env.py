@@ -1,4 +1,6 @@
+from core.run_result import RunResult
 from core.instance_with_run_results import InstanceWithRunResults
+
 
 class BaseEnv:
 
@@ -17,28 +19,38 @@ class BaseEnv:
 
         run_results = []
 
-        self._allocate_instance(workload, instance)
-        for attempt in range(attempts):
-            run_result = self._get_run_result(
-                workload,
-                instance
-            )
-
-            self._total_elapsed_time += run_result.elapsed_time
-            self._total_cost += run_result.cost
-
-            run_results.append(run_result)
-            print('attempt: {} failure: {} time elapsed: {} cost: {}'.format(
-                attempt,
-                run_result.failure,
-                run_result.elapsed_time,
-                run_result.cost,
+        try:
+            self._allocate_instance(workload, instance)
+        except Exception as e:
+            print('failed to allocate instance')
+            run_results.append(RunResult(
+                failure=True,
+                elapsed_time=0,
+                cost=0,
+                container_metrics=[]
             ))
+        else:
+            for attempt in range(attempts):
+                run_result = self._get_run_result(
+                    workload,
+                    instance
+                )
 
-            # TODO(nmikhaylov): threshold for failures?
-            if run_result.failure:
-                break
-        self._deallocate_instance(workload, instance)
+                self._total_elapsed_time += run_result.elapsed_time
+                self._total_cost += run_result.cost
+
+                run_results.append(run_result)
+                print('attempt: {} failure: {} time elapsed: {} cost: {}'.format(
+                    attempt,
+                    run_result.failure,
+                    run_result.elapsed_time,
+                    run_result.cost,
+                ))
+
+                # TODO(nmikhaylov): threshold for failures?
+                if run_result.failure:
+                    break
+            self._deallocate_instance(workload, instance)
 
         run_result = InstanceWithRunResults(instance, run_results)
         self._cachalot.post(self._env_name, workload, instance, run_result)
