@@ -1,6 +1,7 @@
 import json
 import plumbum
 
+from cloud.azure.pricing import Pricing
 from core.instance import Instance
 
 def az():
@@ -29,27 +30,6 @@ def parse_instances(pricing, list_sizes_json):
         ))
         print(str(available_instances[-1]))
     return available_instances
-
-
-class Pricing:
-
-    def __init__(self, pricing_filename):
-        self._price_by_name = {}
-
-        with open(pricing_filename) as f:
-            for line in f:
-                line = line.rstrip()
-                if len(line) == 0:
-                    continue
-
-                name, price = line.split()
-                self._price_by_name[name] = float(price) / 60 / 60
-
-    def get_cost_per_second(self, name):
-        name = str.lower(name)
-        if name in self._price_by_name:
-            return self._price_by_name[name]
-        return None
 
 
 class Azure:
