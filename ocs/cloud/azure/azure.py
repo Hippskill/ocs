@@ -5,6 +5,7 @@ import time
 from cloud.azure.pricing import Pricing
 from cloud.utils import setup_vm, make_ssh
 from core.instance import Instance
+from core.run_result import RunResult
 
 
 def az():
@@ -86,13 +87,13 @@ class Azure:
 
         ssh = make_ssh(user='azureuser', address=ip_address)
 
-        remote_runner_cmd = './ocs/ocs/remote_runner.py --workload \'{}\' --instance \'{}\' --config \'{}\''.format(
+        remote_runner_cmd = 'sudo ./ocs/ocs/remote_runner.py --workload \'{}\' --instance \'{}\' --config \'{}\''.format(
             workload.to_json_str(),
             instance.to_json_str(),
             self._config_str
         )
-
-        run_result = RunResult.from_json_str(ssh['{}'.format(remote_runner_cmd)])
+        run_result = RunResult.from_json_str(ssh[remote_runner_cmd]())
+        print(run_result)
 
         az_vm()['delete'] \
             ['--resource-group', 'ocs_westus'] \
