@@ -1,8 +1,11 @@
 import json
 import plumbum
+import time
 
 from cloud.azure.pricing import Pricing
+from cloud.utils import setup_vm
 from core.instance import Instance
+
 
 def az():
     return plumbum.local['az']
@@ -47,4 +50,37 @@ class Azure:
         return self._available_instances
 
     def get_run_result(self, workload, instance):
+        vm_name = 'vm_{}_{}'.format(workload.name, instance.name)
+
+        create_vm = az_vm()['create'] \
+            ['--resource-group', 'ocs_westus'] \
+            ['--name', vm_name] \
+            ['--image', 'UbuntuLTS'] \
+            ['--admin-username', 'azureuser'] \
+            ['--generate-ssh-keys'] \
+            ['--size', instance.name]
+        # create_vm & plumbum.FG
+
+        vm_info = None
+        found = False
+        #TODO(nmikhaylov): add limit for iterations
+        while not found:
+            vm_list = json.loads(az_vm()['list']())
+            for vm in vm_list:
+                if vm['name'] == vm_name:
+                    found = True
+                    vm_info = vm
+                    break
+
+            if not found:
+                time.sleep(10)
+
+        ip_info = json.loads(az_vm()['list-ip-addresses'] \
+            ['--resource-group', 'ocs_westus'] \
+            ['--name', vm_name]())
+
+        ip_address = ip_info[0]['virtualMachine']['network']['publicIpAddresses'][0]['ipAddress']
+
+        setup_vm(user='azureuser', address=ip_address)
+
         return None
