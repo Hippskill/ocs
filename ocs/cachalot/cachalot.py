@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import argparse
-from flask import make_response, request, Flask
+import os
+import pickledb
+import json
+from flask import make_response, request, Flask, jsonify
 from werkzeug.serving import make_server
 
 
@@ -10,6 +13,11 @@ class Cachelot:
         self.host = host
         self.port = port
         self.working_directory = working_directory
+        if not os.path.exists(self.working_directory):
+            os.makedirs(self.working_directory)
+
+        db_path = os.path.join(self.working_directory, 'run_results.db')
+        self._db = pickledb.load(db_path, False)
 
         self._init_flask_server()
 
@@ -19,14 +27,31 @@ class Cachelot:
         @app.route('/run_result', methods=['GET', 'POST'])
         def run_result_handler():
             if request.method == 'POST':
-                print('got new run_result ', request.data)
+                self.save_run_result(request.data)
             elif request.method == 'GET':
-                print('requesting run_result for ', request.data)
-            return ''
+                return self.get_run_result(request.data)
 
         self.server = make_server(self.host, self.port, app)
         self.app_context = app.app_context()
         self.app_context.push()
+
+    def save_run_result(self, data_bytes):
+        data = json.loads(data_bytes, encoding='utf-8')
+        key = data['key']
+        value = data['value']
+        self._db.set(key, value)
+        self._db.dump()
+
+    def get_run_result(self, data_bytes):
+        data = json.loads(data_bytes, encoding='utf-8')
+        key = data['key']
+
+        if self._db.exists(key):
+            data['value'] = self._db.get(key)
+        else:
+            data['value'] = None
+
+        return data
 
     def serve_forever(self):
         print('start serving cachelot on {}:{}'.format(self.host, self.port))
