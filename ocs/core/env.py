@@ -17,7 +17,12 @@ class BaseEnv:
 
         run_results = []
         for attempt in range(attempts):
-            run_result = self._get_run_result(workload, instance)
+            run_result = self._get_run_result(
+                workload,
+                instance,
+                is_first=bool(attempt == 0),
+                is_last=bool(attempt + 1 == attempts)
+            )
 
             self._total_elapsed_time += run_result.elapsed_time
             self._total_cost += run_result.cost

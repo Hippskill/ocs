@@ -51,7 +51,7 @@ class Azure:
         self._available_instances = parse_instances(self._pricing, list_sizes_json)
         return self._available_instances
 
-    def get_run_result(self, workload, instance):
+    def get_run_result(self, workload, instance, is_first, is_last):
         vm_name = 'vm_{}_{}'.format(workload.name, instance.name)
 
         create_vm = az_vm()['create'] \
@@ -61,7 +61,9 @@ class Azure:
             ['--admin-username', 'azureuser'] \
             ['--generate-ssh-keys'] \
             ['--size', instance.name]
-        create_vm & plumbum.FG
+
+        if is_first:
+            create_vm & plumbum.FG
 
         vm_info = None
         found = False
@@ -95,9 +97,10 @@ class Azure:
         run_result = RunResult.from_json_str(ssh[remote_runner_cmd]())
         print(run_result)
 
-        az_vm()['delete'] \
-            ['--resource-group', 'ocs_westus'] \
-            ['--name', vm_name] \
-            ['--yes'] & plumbum.FG
+        if is_last:
+            az_vm()['delete'] \
+                ['--resource-group', 'ocs_westus'] \
+                ['--name', vm_name] \
+                ['--yes'] & plumbum.FG
 
         return run_result

@@ -28,5 +28,5 @@ class SimulationEnv(BaseEnv):
     def get_available_instances(self):
         return self._available_instances
 
-    def _get_run_result(self, workload, instance):
+    def _get_run_result(self, workload, instance, is_first, is_last):
         return self._local_runner.run(workload, instance)
