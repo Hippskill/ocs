@@ -1,0 +1,29 @@
+cachalot:
+  host: 127.0.0.1
+  port: 13866
+
+env:
+  type: Cloud
+
+  azure:
+    name: cloud_azure
+
+    metrics_poll_interval: 0.1
+    timeout: 20
+
+workload:
+  name: 'Factorize'
+  image: hippskill/ocs-factorize:0.1.0
+
+algorithm:
+  type: Scout
+
+  runs_per_instance: 3
+  seed: 228
+  probability_threshold: 0.8
+  cost_adjust_coef: 1000
+  iters: 20
+  max_runs_per_iter: 3
+
+  policy:
+    max_cost: 1
