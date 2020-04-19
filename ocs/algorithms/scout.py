@@ -71,7 +71,7 @@ class Scout(Algorithm):
         instances_with_run_results = []
 
         for suitable_instance in suitable_instances[:self.max_runs_per_iter]:
-            print('try', suitable_instance)
+            print('try instance:', suitable_instance, 'runs_per_instance:', self.runs_per_instance)
             instances_with_run_results.append(env.run_workload_on_instance(
                 workload,
                 suitable_instance,

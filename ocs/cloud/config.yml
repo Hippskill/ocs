@@ -21,7 +21,7 @@ workload:
   image: hippskill/ocs-factorize:0.1.0
 
 algorithm:
-  type: Scout
+  type: CoordinateDescent
 
   runs_per_instance: 3
   seed: 228

@@ -40,8 +40,9 @@ class BaseEnv:
                 self._total_cost += run_result.cost
 
                 run_results.append(run_result)
-                print('attempt: {} failure: {} time elapsed: {} cost: {}'.format(
-                    attempt,
+                print('attempt: {}/{} failure: {} time elapsed: {} cost: {}'.format(
+                    attempt + 1,
+                    attempts,
                     run_result.failure,
                     run_result.elapsed_time,
                     run_result.cost,
