@@ -51,3 +51,9 @@ best instance metrics instance: Instance(name=Standard_B2ms, n_cpu=2, n_ram_gb=8
 cost 0.002494418867746989
 
 elapsed time 140.05027627944946
+
+## Random search
+best instance not found :(
+
+## Scout
+best instance not found :(
