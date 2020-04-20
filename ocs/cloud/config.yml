@@ -54,8 +54,8 @@ algorithm:
   seed: 228
   probability_threshold: 0.5
   cost_adjust_coef: 1000
-  iters: 20
-  max_runs_per_iter: 20
+  iters: 5
+  max_runs_per_iter: 3
 
   policy:
     max_cost: 1

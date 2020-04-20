@@ -46,6 +46,9 @@ def parse_instances(pricing, list_sizes_json, whitelist):
         n_cpu = int(size['numberOfCores'])
         n_ram_gb = int(size['memoryInMb']) // 1024
 
+        if n_cpu == 0.0 or n_ram_gb == 0.0:
+            continue
+
         available_instances.append(Instance(
             name=name,
             n_cpu=n_cpu,
