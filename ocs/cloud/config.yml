@@ -10,8 +10,35 @@ env:
 
     pricing: cloud/azure/pricing.txt
 
-    max_cpu: 16
-    max_ram: 20
+    whitelist: [
+      standard_a1_v2,
+      standard_a2_v2,
+      standard_a2m_v2,
+      standard_a4_v2,
+      standard_a4m_v2,
+      standard_b1ls,
+      standard_b1ms,
+      standard_b1s,
+      standard_b2ms,
+      standard_b2s,
+      standard_b4ms,
+      standard_d1_v2,
+      standard_d2_v2,
+      standard_d2_v3,
+      standard_d2a_v4,
+      standard_d2as_v4,
+      standard_d2s_v3,
+      standard_d3_v2,
+      standard_d4_v3,
+      standard_d4a_v4,
+      standard_d4as_v4,
+      standard_d4s_v3,
+      standard_ds1_v2,
+      standard_ds2_v2,
+      standard_ds3_v2,
+      standard_nc6_promo,
+      standard_nv6_promo,
+    ]
 
     metrics_poll_interval: 0.1
     timeout: 60
@@ -21,11 +48,11 @@ workload:
   image: hippskill/ocs-factorize:0.1.0
 
 algorithm:
-  type: CoordinateDescent
+  type: RandomSearch
 
   runs_per_instance: 3
   seed: 228
-  probability_threshold: 0.8
+  probability_threshold: 0.5
   cost_adjust_coef: 1000
   iters: 20
   max_runs_per_iter: 20

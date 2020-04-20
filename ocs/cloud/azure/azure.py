@@ -29,10 +29,14 @@ def get_ip_addres(vm_name):
         time.sleep(10)
 
 
-def parse_instances(pricing, list_sizes_json, max_cpu, max_ram):
+def parse_instances(pricing, list_sizes_json, whitelist):
     available_instances = []
     for size in list_sizes_json:
         name = size['name']
+
+        if str.lower(name) not in whitelist:
+            continue
+
         cost_per_second = pricing.get_cost_per_second(name)
 
         if cost_per_second is None:
@@ -41,9 +45,6 @@ def parse_instances(pricing, list_sizes_json, max_cpu, max_ram):
 
         n_cpu = int(size['numberOfCores'])
         n_ram_gb = int(size['memoryInMb']) // 1024
-
-        if n_cpu > max_cpu or n_ram_gb > max_ram:
-            continue
 
         available_instances.append(Instance(
             name=name,
@@ -58,10 +59,9 @@ def parse_instances(pricing, list_sizes_json, max_cpu, max_ram):
 class Azure:
     def __init__(self, config):
         self._pricing = Pricing(config['pricing'])
+        self._whitelist = config['whitelist']
         self._available_instances = None
         self._config_str = json.dumps(config)
-        self._max_cpu = config['max_cpu']
-        self._max_ram = config['max_ram']
 
     def get_available_instances(self):
         if self._available_instances is not None:
@@ -69,7 +69,7 @@ class Azure:
 
         #TODO(nmikhaylov): -l to config
         list_sizes_json = json.loads(az_vm()['list-sizes']['-l']['westus']())
-        self._available_instances = parse_instances(self._pricing, list_sizes_json, self._max_cpu, self._max_ram)
+        self._available_instances = parse_instances(self._pricing, list_sizes_json, self._whitelist)
         return self._available_instances
 
     def allocate_instance(self, workload, instance):
