@@ -97,6 +97,7 @@ class Azure:
         az_vm()['delete'] \
             ['--resource-group', 'ocs_westus'] \
             ['--name', vm_name] \
+            ['--no-wait'] \
             ['--yes'] & plumbum.FG
 
     def get_run_result(self, workload, instance):
