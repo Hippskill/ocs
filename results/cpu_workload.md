@@ -55,8 +55,6 @@ elapsed time 140.05027627944946
 ## Random search
 best instance is Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05)
 
-got run run_result from cachalot instance: Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05) failure: False mean_cost: 0.0011385384762728657 mean_elapsed: 29.27670367558797
-
 best instance metrics instance: Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05) failure: False mean_cost: 0.0011385384762728657 mean_elapsed: 29.27670367558797
 
 cost 0.014887863306495877
@@ -64,4 +62,11 @@ cost 0.014887863306495877
 elapsed time 458.9312539100647
 
 ## Scout
-best instance not found :(
+best instance is Instance(name=Standard_A4m_v2, n_cpu=4, n_ram_gb=32, cost_per_second=8.249999999999999e-05)
+
+
+best instance metrics instance: Instance(name=Standard_A4m_v2, n_cpu=4, n_ram_gb=32, cost_per_second=8.249999999999999e-05) failure: False mean_cost: 0.003647749301195144 mean_elapsed: 44.215143044789635
+
+cost 0.01119670919262038
+
+elapsed time 206.23096466064453
