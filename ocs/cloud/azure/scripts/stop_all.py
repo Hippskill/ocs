@@ -16,6 +16,10 @@ for vm in vm_list:
     print('stop', name)
     az_vm()['delete']['--name', name]['--resource-group', 'ocs_westus']['--yes'] & plumbum.FG()
 
+
 az_group()['delete']['--name', 'ocs_westus']['--yes'] & plumbum.FG
 
 az_group()['create']['-l', 'westus']['--name', 'ocs_westus'] & plumbum.FG
+
+print('everything stoped')
+print('check https://portal.azure.com/#blade/Microsoft_Azure_Education/EducationMenuBlade/overview for accout info')
