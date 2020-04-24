@@ -15,6 +15,8 @@ class BaseEnv:
         run_result = self._cachalot.get(self._env_name, workload, instance)
         if run_result is not None:
             print('got run run_result from cachalot', run_result)
+            self._total_elapsed_time += run_result.mean_elapsed * attempts
+            self._total_cost += run_result.mean_cost * attempts
             return run_result
 
         run_results = []
