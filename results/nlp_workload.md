@@ -29,3 +29,15 @@ best instance metrics instance: Instance(name=custom, n_cpu=7, n_ram_gb=12, cost
 cost 3.1663697307236993
 
 elapsed time 7225.254738171895
+
+# Azure
+
+## Scout
+
+best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
+
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.007676771552960079 mean_elapsed: 99.0551168123881
+
+cost 0.1520333244273398
+
+elapsed time 7267.257376352946
