@@ -10,6 +10,8 @@ def run_container(image, cpuset_cpus=None, memory=None):
     if memory is not None:
         docker = docker['--memory'][memory]
 
+    docker = docker['--memory-swap 256m']
+
     docker = docker[image]
 
     return docker()
