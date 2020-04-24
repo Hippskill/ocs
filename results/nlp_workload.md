@@ -41,3 +41,19 @@ best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb
 cost 0.1520333244273398
 
 elapsed time 7267.257376352946
+
+## Random Search
+
+best instance not found :(
+
+## Coordinate Descent
+
+best coordinates is {'n_cpu': 4, 'n_ram_gb': 14}
+
+best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
+
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.007676771552960079 mean_elapsed: 99.0551168123881
+
+cost 0.06751917437598441
+
+elapsed time 1822.7409686247508
