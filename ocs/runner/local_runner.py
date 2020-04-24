@@ -20,16 +20,19 @@ class LocalRunner:
         container_id = run_container(
             image=workload.image,
             cpuset_cpus=','.join(map(str, range(instance.n_cpu))),
-            memory=instance.n_ram_gb * 1024 * 1024 * 1024
+            memory_mb=instance.n_ram_gb * 1024
         )
 
         # TODO(nmikhaylov): string failure reason instaed of boolean flag?
         failure = False
 
         container_metrics = []
+        exit_code = 0
         while True:
             container = self._docker_client.containers.get(container_id[:12])
             if container.status != 'running':
+                result = container.wait()
+                exit_code = result['StatusCode']
                 break
 
             # TODO(nmikhaylov): also handle OOM as failure
@@ -42,6 +45,9 @@ class LocalRunner:
                 container.stats(stream=False)
             ))
             time.sleep(self._metrics_poll_interval)
+
+        if exit_code != 0:
+            failure = True
 
         finish_time = time.time()
         elapsed_time = finish_time - start_time
