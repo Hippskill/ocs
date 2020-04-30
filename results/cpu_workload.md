@@ -42,31 +42,28 @@ elapsed time 157.74241662025452
 
 # Azure
 ## Coordinate descent
-best coordinates is {'n_cpu': 2, 'n_ram_gb': 8}
+best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
 
-best instance is Instance(name=Standard_B2ms, n_cpu=2, n_ram_gb=8, cost_per_second=2.7555555555555555e-05)
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.0017329374308586124 mean_elapsed: 22.360482978820798
 
-best instance metrics instance: Instance(name=Standard_B2ms, n_cpu=2, n_ram_gb=8, cost_per_second=2.7555555555555555e-05) failure: False mean_cost: 0.00067983470026652 mean_elapsed: 24.671420574188232
+cost 0.045855036999252106
 
-cost 0.002494418867746989
-
-elapsed time 140.05027627944946
+elapsed time 893.8057196617126
 
 ## Random search
 best instance is Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05)
 
-best instance metrics instance: Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05) failure: False mean_cost: 0.0011385384762728657 mean_elapsed: 29.27670367558797
+best instance metrics instance: Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05) failure: False mean_cost: 0.001435837024052938 mean_elapsed: 36.92152347564697
 
-cost 0.014887863306495877
+cost 0.022694643210503792
 
-elapsed time 458.9312539100647
+elapsed time 1181.617150449753
 
 ## Scout
-best instance is Instance(name=Standard_A4m_v2, n_cpu=4, n_ram_gb=32, cost_per_second=8.249999999999999e-05)
+best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
 
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.0016078097249865534 mean_elapsed: 20.74593193531036
 
-best instance metrics instance: Instance(name=Standard_A4m_v2, n_cpu=4, n_ram_gb=32, cost_per_second=8.249999999999999e-05) failure: False mean_cost: 0.003647749301195144 mean_elapsed: 44.215143044789635
+cost 0.0906267943558362
 
-cost 0.01119670919262038
-
-elapsed time 206.23096466064453
+elapsed time 3398.7146716833113
