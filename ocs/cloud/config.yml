@@ -45,12 +45,12 @@ env:
 
 workload:
   name: 'Factorize'
-  image: hippskill/ocs-factorize:0.1.0
+  image: hippskill/ocs-factorize:0.1.1
 
 algorithm:
-  type: Scout
+  type: RandomSearch
 
-  runs_per_instance: 3
+  runs_per_instance: 10
   seed: 228
   probability_threshold: 0.5
   cost_adjust_coef: 1000

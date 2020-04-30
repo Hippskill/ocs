@@ -15,8 +15,8 @@ class InstanceWithRunResults:
 
     def _parse_results(self):
         self.failure = any([run_result.failure for run_result in self._run_results])
-        self.mean_cost = np.mean([run_result.cost for run_result in self._run_results])
-        self.mean_elapsed = np.mean([run_result.elapsed_time for run_result in self._run_results])
+        self.mean_cost = np.quantile([run_result.cost for run_result in self._run_results], 0.9)
+        self.mean_elapsed = np.quantile([run_result.elapsed_time for run_result in self._run_results], 0.9)
 
     def __str__(self):
         return 'instance: {} failure: {} mean_cost: {} mean_elapsed: {}'.format(

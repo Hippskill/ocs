@@ -31,6 +31,7 @@ class BaseEnv:
                 cost=0,
                 container_metrics=[]
             ))
+            return InstanceWithRunResults(instance, run_results)
         else:
             for attempt in range(attempts):
                 run_result = self._get_run_result(
