@@ -39,3 +39,35 @@ best instance metrics instance: Instance(name=custom, n_cpu=2, n_ram_gb=1, cost_
 cost 1.0582262437980174
 
 elapsed time 4809.850687432289
+
+# Azure
+
+## RandomSearch
+
+best instance is Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05)
+
+best instance metrics instance: Instance(name=Standard_DS2_v2, n_cpu=2, n_ram_gb=7, cost_per_second=3.888888888888889e-05) failure: False mean_cost: 0.0013396068221992916 mean_elapsed: 34.44703257083893
+
+cost 0.028649578314595758
+
+elapsed time 1469.7409225702286
+
+## CoordinateDescent
+
+best instance is Instance(name=Standard_DS1_v2, n_cpu=1, n_ram_gb=3, cost_per_second=1.9444444444444445e-05)
+
+best instance metrics instance: Instance(name=Standard_DS1_v2, n_cpu=1, n_ram_gb=3, cost_per_second=1.9444444444444445e-05) failure: False mean_cost: 0.0007063740536901687 mean_elapsed: 36.327808475494386
+
+cost 0.022737797415468424
+
+elapsed time 1805.1336380004882
+
+## Scout
+
+best instance is Instance(name=Standard_DS1_v2, n_cpu=1, n_ram_gb=3, cost_per_second=1.9444444444444445e-05)
+
+best instance metrics instance: Instance(name=Standard_DS1_v2, n_cpu=1, n_ram_gb=3, cost_per_second=1.9444444444444445e-05) failure: False mean_cost: 0.0007063740536901687 mean_elapsed: 36.327808475494386
+
+cost 0.058836381684912564
+
+elapsed time 4496.815293407441
