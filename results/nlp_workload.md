@@ -36,11 +36,12 @@ elapsed time 7225.254738171895
 
 best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
 
-best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.007676771552960079 mean_elapsed: 99.0551168123881
 
-cost 0.1520333244273398
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.007761907555162906 mean_elapsed: 100.15364587306973
 
-elapsed time 7267.257376352946
+cost 0.15387534992694854
+
+elapsed time 1985.4883861541746
 
 ## Random Search
 
@@ -52,7 +53,7 @@ best coordinates is {'n_cpu': 4, 'n_ram_gb': 14}
 
 best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
 
-best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.007676771552960079 mean_elapsed: 99.0551168123881
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.007761907555162906 mean_elapsed: 100.15364587306973
 
 cost 0.06751917437598441
 
