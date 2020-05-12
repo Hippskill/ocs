@@ -58,9 +58,9 @@ cost 0.022694643210503792
 elapsed time 1181.617150449753
 
 ## Scout
-best instance is Instance(name=Standard_A4m_v2, n_cpu=4, n_ram_gb=32, cost_per_second=8.249999999999999e-05)
+best instance is Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05)
 
-best instance metrics instance: Instance(name=Standard_A4m_v2, n_cpu=4, n_ram_gb=32, cost_per_second=8.249999999999999e-05) failure: False mean_cost: 0.003850166499316691 mean_elapsed: 46.66868484020233
+best instance metrics instance: Instance(name=Standard_DS3_v2, n_cpu=4, n_ram_gb=14, cost_per_second=7.750000000000001e-05) failure: False mean_cost: 0.0017329374308586124 mean_elapsed: 22.360482978820798
 
 cost 0.0790260914005041
 
