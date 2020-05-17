@@ -69,13 +69,13 @@ cost 2.1358160398697854
 elapsed time 5019.897122621536
 
 ## Scout
-best instance is Instance(name=custom, n_cpu=1, n_ram_gb=3, cost_per_second=0.00013000000000000002)
+best instance is Instance(name=custom, n_cpu=3, n_ram_gb=1, cost_per_second=0.00031000000000000005)
 
-best instance metrics instance: Instance(name=custom, n_cpu=1, n_ram_gb=3, cost_per_second=0.00013000000000000002) failure: False mean_cost: 0.007753496149778367 mean_elapsed: 59.6422780752182
+best instance metrics instance: Instance(name=custom, n_cpu=3, n_ram_gb=1, cost_per_second=0.00031000000000000005) failure: False mean_cost: 0.007417633591175081 mean_elapsed: 23.92785029411316
 
-cost 0.8453112126231196
+cost 0.5090435535669328
 
-elapsed time 1904.0409371852875
+elapsed time 2622.697366952896
 
 # Azure
 ## Coordinate descent

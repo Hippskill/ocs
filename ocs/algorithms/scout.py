@@ -19,8 +19,8 @@ class Scout(Algorithm):
 
         # TODO(nmikhaylov): tweak weights by config
         self.coordinate_weight = {
-                'n_cpu': 5.0,
-                'n_ram_gb': 1.0
+            'n_cpu': -1.0,
+            'n_ram_gb': -1.0
         }
 
         self.learning_rate = {
@@ -97,6 +97,9 @@ class Scout(Algorithm):
         return policy.choose_best_instance(instances_with_run_results)
 
     def _adjust_coordinate_weights(self, best_instance, candidate_instance):
+        if candidate_instance.failure:
+            return
+
         time_diff = candidate_instance.mean_elapsed - best_instance.mean_elapsed
         cost_diff = candidate_instance.mean_cost - best_instance.mean_cost
         for coordinate in Instance.coordinates():
