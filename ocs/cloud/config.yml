@@ -44,18 +44,19 @@ env:
     timeout: 60
 
 workload:
-  name: 'Factorize'
+  name: 'Factorize1'
   image: hippskill/ocs-factorize:0.1.1
 
 algorithm:
-  type: RandomSearch
+  type: Scout
 
   runs_per_instance: 10
-  seed: 228
+  seed: 1337
   probability_threshold: 0.5
   cost_adjust_coef: 1000
   iters: 5
   max_runs_per_iter: 3
+  gamma: 0.95
 
   policy:
     max_cost: 1

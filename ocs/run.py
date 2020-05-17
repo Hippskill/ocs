@@ -17,6 +17,7 @@ from cachalot.client import CachalotClient
 from cloud.env import CloudEnv
 from core.workload import Workload
 from simulation.env import SimulationEnv
+from core.policy import MinCostTimeLimitPolicy, MinTimeCostLimitPolicy
 
 
 def algorithm_from_config(config):
@@ -41,6 +42,14 @@ def env_from_config(config, cachalot):
         raise Exception('unexpected env type: {}'.format(config['type']))
 
 
+def policy_from_config(config):
+    if config['type'] == 'min_cost_time_limit':
+        return MinCostTimeLimitPolicy(config)
+    elif config['type'] == 'min_time_cost_limit':
+        return MinTimeCostLimitPolicy(config)
+    else:
+        raise Exception('unexpected policy type: {}'.format(config['type']))
+
 def run(config):
     print(config)
 
@@ -48,11 +57,12 @@ def run(config):
     algorithm = algorithm_from_config(config['algorithm'])
     cachalot = CachalotClient(config['cachalot']['host'], config['cachalot']['port'])
     env = env_from_config(config['env'], cachalot)
+    policy = policy_from_config(config['policy'])
 
     print('start optimizing configuration for workload:', workload)
     print('available instances:', ', '.join(map(str, env.get_available_instances())))
 
-    best_instance = algorithm.choose_best_instance(workload, env)
+    best_instance = algorithm.choose_best_instance(policy, workload, env)
 
     if best_instance is None:
         print('best instance not found :(')

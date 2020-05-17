@@ -19,21 +19,23 @@ env:
       ram_gb:   0.00001
 
     metrics_poll_interval: 0.1
-    timeout: 20
+    timeout: 60
 
 workload:
   name: 'Factorize'
   image: hippskill/ocs-factorize:0.1.1
 
 algorithm:
-  type: RandomSearch
+  type: FullSearch
 
   runs_per_instance: 10
-  seed: 228
-  probability_threshold: 0.8
+  seed: 1337
+  probability_threshold: 0.7
   cost_adjust_coef: 1000
   iters: 20
   max_runs_per_iter: 3
+  gamma: 0.99
 
-  policy:
-    max_cost: 1
+policy:
+  type: min_cost_time_limit
+  limit: 60

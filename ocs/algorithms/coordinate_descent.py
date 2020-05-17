@@ -1,7 +1,6 @@
 import numpy.random as random
 
 from core.algorithm import Algorithm
-from core.policy import Policy
 from core.instance import Instance
 
 
@@ -26,9 +25,8 @@ class CoordinateDescent(Algorithm):
     def __init__(self, config):
         self.runs_per_instance = config['runs_per_instance']
         self.seed = config['seed']
-        self.policy = Policy(config['policy'])
 
-    def choose_best_instance(self, workload, env):
+    def choose_best_instance(self, policy, workload, env):
         random.seed(self.seed)
 
         available_instances = env.get_available_instances()
@@ -78,7 +76,7 @@ class CoordinateDescent(Algorithm):
                 print('not found any suitable_instance for coordinate: ', coordinate)
                 break
 
-            best_instance = self.policy.choose_best_instance(instances_with_run_results)
+            best_instance = policy.choose_best_instance(instances_with_run_results)
             best_coordinates[coordinate] = getattr(best_instance, coordinate)
 
         print('best coordinates is', best_coordinates)

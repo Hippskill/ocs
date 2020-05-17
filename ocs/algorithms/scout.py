@@ -2,7 +2,6 @@ import numpy.random as random
 import numpy as np
 
 from core.algorithm import Algorithm
-from core.policy import Policy
 from core.instance import Instance
 
 
@@ -11,7 +10,6 @@ class Scout(Algorithm):
     def __init__(self, config):
         self.runs_per_instance = config['runs_per_instance']
         self.seed = config['seed']
-        self.policy = Policy(config['policy'])
         self.probability_threshold = config['probability_threshold']
         self.iters = config['iters']
         self.max_runs_per_iter = config['max_runs_per_iter']
@@ -21,14 +19,15 @@ class Scout(Algorithm):
 
         # TODO(nmikhaylov): tweak weights by config
         self.coordinate_weight = {
-            coordinate: 1.0 for coordinate in Instance.coordinates()
+                'n_cpu': 5.0,
+                'n_ram_gb': 1.0
         }
 
         self.learning_rate = {
             coordinate: 1.0 for coordinate in Instance.coordinates()
         }
 
-    def choose_best_instance(self, workload, env):
+    def choose_best_instance(self, policy, workload, env):
         random.seed(self.seed)
 
         available_instances = env.get_available_instances()
@@ -46,7 +45,7 @@ class Scout(Algorithm):
             if len(suitable_instances) == 1:
                 break
 
-            best_instance = self.select_best_instance(suitable_instances, workload, env)
+            best_instance = self.select_best_instance(suitable_instances, policy, workload, env)
 
         return  best_instance
 
@@ -79,7 +78,7 @@ class Scout(Algorithm):
 
         return 1 / (1 + np.exp(-weighted_diff))
 
-    def select_best_instance(self, suitable_instances, workload, env):
+    def select_best_instance(self, suitable_instances, policy, workload, env):
         instances_with_run_results = []
 
         for suitable_instance in suitable_instances[:self.max_runs_per_iter]:
@@ -95,7 +94,7 @@ class Scout(Algorithm):
                 candidate_instance=instances_with_run_results[-1]
             )
 
-        return self.policy.choose_best_instance(instances_with_run_results)
+        return policy.choose_best_instance(instances_with_run_results)
 
     def _adjust_coordinate_weights(self, best_instance, candidate_instance):
         time_diff = candidate_instance.mean_elapsed - best_instance.mean_elapsed
